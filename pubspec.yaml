@@ -1,0 +1,49 @@
+name: xiaoyishi
+version: 1.0.0+1
+publish_to: none
+description: Campus idle trading platform
+environment: 
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  #
+  get: 4.6.6
+  # 网络请求
+  dio: ^5.4.1
+  # 本地存储
+  shared_preferences: ^2.2.2
+  # 事件广播
+  event_bus: ^2.0.0
+  # 屏幕适配
+  flutter_screenutil: ^5.9.0
+  # 高德定位
+#  amap_flutter_location: ^3.0.0
+  # 高德sdk
+#  amap_flutter_map: ^3.0.0
+  # 百度地图
+#  flutter_bmflocation: ^3.6.0
+#  flutter_baidu_mapapi_map: ^3.6.0
+  url_launcher: ^6.2.5
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^2.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/2.0x/
+    - assets/images/3.0x/
+  fonts:
+    - family: iconFonts
+      fonts:
+        - asset: assets/fonts/iconfont.ttf
+    - family: k2d
+      fonts:
+        - asset: assets/fonts/K2D/K2D-Bold.ttf
+
