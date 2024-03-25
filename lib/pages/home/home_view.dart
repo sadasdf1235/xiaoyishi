@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
+import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../widgets/ld_icon.dart';
 import '../../controllers/home_controller.dart';
@@ -11,20 +12,6 @@ import '../../widgets/space_around.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
-
-  Widget _categoryItem(Icon icon,String title){
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 17.w,vertical: 0),
-      child: Column(
-        children: [
-          icon,
-          SizedBox(height: 10.h,),
-          Text(title,style: TextStyle(fontSize: 11.sp,fontWeight: FontWeight.bold),)
-        ],
-      ),
-    );
-  }
 
   Widget _top() {
     return Container(
@@ -111,12 +98,20 @@ class HomeView extends GetView<HomeController> {
               ),
               child: Row(
                 children: [
-                  SizedBox(width: 25.w,),
-                  const Icon(Icons.search,color: CommonColors.unimportanceColor,),
-                  SizedBox(width: 20.w,),
+                  SizedBox(
+                    width: 25.w,
+                  ),
+                  const Icon(
+                    Icons.search,
+                    color: CommonColors.unimportanceColor,
+                  ),
+                  SizedBox(
+                    width: 20.w,
+                  ),
                   Text(
                     (I18nContent.SEARCHFAVORITES.tr),
-                    style: const TextStyle(color: CommonColors.unimportanceColor),
+                    style:
+                        const TextStyle(color: CommonColors.unimportanceColor),
                   )
                 ],
               ),
@@ -127,7 +122,27 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget _category(){
+  Widget _categoryItem(Icon icon, String title) {
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 0),
+      child: Column(
+        children: [
+          icon,
+          SizedBox(
+            height: 10.h,
+          ),
+          Text(
+            title,
+            style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold),
+          )
+        ],
+      ),
+    );
+  }
+
+  /// 分类列表
+  Widget _category() {
     return Container(
       width: double.infinity,
       height: 156.h,
@@ -136,18 +151,140 @@ class HomeView extends GetView<HomeController> {
         crossAxisCount: 4,
         crossAxisSpacing: 0,
         childAspectRatio: 1,
+        physics: const NeverScrollableScrollPhysics(),
         children: [
-          _categoryItem(Icon(LdIcon.phone,color: CommonColors.themeColor,), '手机'),
-          _categoryItem(Icon(LdIcon.phone,color: CommonColors.themeColor,), '手机'),
-          _categoryItem(Icon(LdIcon.phone,color: CommonColors.themeColor,), '手机'),
-          _categoryItem(Icon(LdIcon.phone,color: CommonColors.themeColor,), '手机'),
-          _categoryItem(Icon(LdIcon.phone,color: CommonColors.themeColor,), '手机'),
-          _categoryItem(Icon(LdIcon.phone,color: CommonColors.themeColor,), '手机'),
-          _categoryItem(Icon(LdIcon.phone,color: CommonColors.themeColor,), '手机'),
-          _categoryItem(Icon(LdIcon.package,color: CommonColors.themeColor,), '手机'),
+          _categoryItem(
+              Icon(
+                LdIcon.phone,
+                color: CommonColors.themeColor,
+              ),
+              '手机'),
+          _categoryItem(
+              Icon(
+                LdIcon.phone,
+                color: CommonColors.themeColor,
+              ),
+              '手机'),
+          _categoryItem(
+              Icon(
+                LdIcon.phone,
+                color: CommonColors.themeColor,
+              ),
+              '手机'),
+          _categoryItem(
+              Icon(
+                LdIcon.phone,
+                color: CommonColors.themeColor,
+              ),
+              '手机'),
+          _categoryItem(
+              Icon(
+                LdIcon.phone,
+                color: CommonColors.themeColor,
+              ),
+              '手机'),
+          _categoryItem(
+              Icon(
+                LdIcon.phone,
+                color: CommonColors.themeColor,
+              ),
+              '手机'),
+          _categoryItem(
+              Icon(
+                LdIcon.phone,
+                color: CommonColors.themeColor,
+              ),
+              '手机'),
+          _categoryItem(
+              Icon(
+                LdIcon.package,
+                color: CommonColors.themeColor,
+              ),
+              '手机'),
         ],
       ),
-      );
+    );
+  }
+
+  ///  猜你喜欢
+  Widget _favorite() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 17.h),
+      child: SpaceAround(
+          leftChild: Text(
+            I18nContent.GUESSLIKE.tr,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp,
+                color: Colors.black),
+          ),
+          rightChild: Text(
+            I18nContent.SEEALL.tr,
+            style: TextStyle(fontSize: 12.sp, color: CommonColors.themeColor),
+          ),
+          height: 20.h),
+    );
+  }
+
+  /// 单个商品
+  Widget _commodity() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Image.network(
+          "https://fastcdn.hoyoverse.com/content-v2/hk4e/122892/133ba31bce0ff2577de049e395ebfc5c_683894240453798045.jpg",
+          fit: BoxFit.cover,
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        Text(
+          "15km",
+          style: TextStyle(
+            fontSize: 12.sp,
+          ),
+        ),
+        Text(
+          '女大学生自用',
+          style: TextStyle(
+              fontSize: 13.sp,
+              color: Colors.black,
+              fontWeight: FontWeight.bold),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+        Row(
+          children: [
+            const Icon(
+              Icons.star,
+              color: Color(0xFFEC6400),
+            ),
+            Text("4.9"),
+            SizedBox(
+              width: 8.w,
+            ),
+            Text("200"),
+            const Text("+收藏")
+          ],
+        )
+      ],
+    );
+  }
+
+  /// 商品列表
+  Widget _productList() {
+    return MasonryGridView.count(
+      padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
+      itemCount: 10,
+      crossAxisCount: 2,
+      mainAxisSpacing: 16.w,
+      crossAxisSpacing: 10.h,
+      shrinkWrap: true, // 添加这一行以确保网格视图的高度能够根据内容自适应
+      physics: const NeverScrollableScrollPhysics(), // 禁用滚动，因为它将放在一个滚动的列表视图中
+      itemBuilder: (context,index){
+        return _commodity();
+      },
+    );
   }
 
   @override
@@ -156,8 +293,15 @@ class HomeView extends GetView<HomeController> {
       body: ListView(
         children: [
           _top(),
-          SizedBox(height: 33.h,),
+          SizedBox(
+            height: 33.h,
+          ),
+          //  分类
           _category(),
+          // 猜你喜欢
+          _favorite(),
+          // 商品列表
+          _productList(),
         ],
       ),
     );

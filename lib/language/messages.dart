@@ -18,6 +18,7 @@ class Messages extends Translations {
 
       I18nContent.LOCATION: '位置',
       I18nContent.SEARCHFAVORITES : '搜你喜欢',
+      I18nContent.GUESSLIKE : '猜你喜欢',
     },
     'en_US': {
       I18nContent.TAB_HOME: 'Home',
@@ -33,6 +34,8 @@ class Messages extends Translations {
 
       I18nContent.LOCATION: 'Location',
       I18nContent.SEARCHFAVORITES : I18nContent.SEARCHFAVORITES,
+
+      I18nContent.GUESSLIKE: I18nContent.GUESSLIKE,
     }
   };
 }

@@ -23,4 +23,9 @@ class I18nContent {
   static const String ORDERTRACKING = "Order Tracking";
   static const String ORDERDETAILS = "Order Details";
   static const String SEARCHFAVORITES = "Search favorites";
+  // 擦你喜欢
+  static const String GUESSLIKE = "Guess You Like";
+
+  static const String SIGNIN = "Sign in";
+  static const String SIGNUP = "Sign up";
 }

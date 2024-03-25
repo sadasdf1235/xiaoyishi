@@ -19,8 +19,8 @@ class TabsController extends GetxController{
   PageController pageController = PageController(initialPage: 0);
   List<Widget> pages = const <Widget>[
     HomeView(),
-    MessageView(),
     DiscoverView(),
+    MessageView(),
     UserView()
   ];
 
