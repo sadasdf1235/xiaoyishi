@@ -9,6 +9,8 @@ import '../../controllers/home_controller.dart';
 import '../../constants/I18n_content.dart';
 import '../../constants/common_colors.dart';
 import '../../widgets/space_around.dart';
+import '../../extension/throttle_extension.dart';
+import '../../routes/app_routes.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -52,13 +54,20 @@ class HomeView extends GetView<HomeController> {
                       child: Row(
                         children: [
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.getLocation();
+                              }.throttle(),
                               icon: const Icon(
                                 Icons.location_pin,
                                 color: CommonColors.themeColor,
                               )),
-                          // TODO
-                          const Text("贵州师范大学")
+                          //
+                          Expanded(
+                              child: Text(
+                            controller.location.value == ''
+                                ? I18nContent.ERRORLOCATION.tr
+                                : controller.location.value,
+                          ))
                         ],
                       ),
                     )
@@ -80,8 +89,10 @@ class HomeView extends GetView<HomeController> {
               SizedBox(
                 height: 10.h,
               ),
+
+              /// 宣传语
               Text(
-                "您想要的，这里都有",
+                I18nContent.TAGLINE.tr,
                 style: TextStyle(
                     fontSize: 36.sp, color: Colors.white, fontFamily: 'k2d'),
               ),
@@ -89,31 +100,36 @@ class HomeView extends GetView<HomeController> {
           ),
           Positioned(
             bottom: 10.h,
-            child: Container(
-              width: 318.w,
-              height: 52.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(1000.r),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 25.w,
-                  ),
-                  const Icon(
-                    Icons.search,
-                    color: CommonColors.unimportanceColor,
-                  ),
-                  SizedBox(
-                    width: 20.w,
-                  ),
-                  Text(
-                    (I18nContent.SEARCHFAVORITES.tr),
-                    style:
-                        const TextStyle(color: CommonColors.unimportanceColor),
-                  )
-                ],
+            child: InkWell(
+              onTap: (){
+                Get.toNamed(Routes.SEARCH);
+              },
+              child: Container(
+                width: 318.w,
+                height: 52.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(1000.r),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
+                    const Icon(
+                      Icons.search,
+                      color: CommonColors.unimportanceColor,
+                    ),
+                    SizedBox(
+                      width: 20.w,
+                    ),
+                    Text(
+                      (I18nContent.SEARCHFAVORITES.tr),
+                      style:
+                          const TextStyle(color: CommonColors.unimportanceColor),
+                    )
+                  ],
+                ),
               ),
             ),
           )
@@ -122,16 +138,126 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget _categoryItem(Icon icon, String title) {
+  PreferredSizeWidget _appBar() {
+    return PreferredSize(
+        preferredSize: Size.fromHeight(300.h),
+        child: AppBar(
+          backgroundColor: CommonColors.themeColor, // AppBar 背景颜色
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.r),
+              bottomRight: Radius.circular(20.r),
+            ),
+          ),
+          leading: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                I18nContent.LOCATION.tr,
+                style: TextStyle(color: Colors.white, fontSize: 12.sp),
+              ),
+              SizedBox(height: 8.h),
+              Container(
+                alignment: Alignment.center,
+                width: 170.w,
+                height: 32.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(1000.r),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        controller.getLocation();
+                      }.throttle(),
+                      icon: const Icon(
+                        Icons.location_pin,
+                        color: CommonColors.themeColor,
+                      ),
+                    ),
+                    Expanded(child: Obx(() => Text(controller.location.value))),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            Container(
+              width: 48.w,
+              height: 48.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(48.r)),
+                color: Colors.white,
+              ),
+              child: const Icon(
+                Icons.notifications,
+                color: CommonColors.themeColor,
+              ),
+            ),
+          ],
+
+          /// 宣传语1
+          flexibleSpace: Text(
+            I18nContent.TAGLINE.tr,
+            style: TextStyle(
+                fontSize: 36.sp, color: Colors.white, fontFamily: 'k2d'),
+          ),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(52.h),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 10.h),
+              child: Container(
+                width: 318.w,
+                height: 52.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(1000.r),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 25.w),
+                    Icon(
+                      Icons.search,
+                      color: CommonColors.unimportanceColor,
+                    ),
+                    SizedBox(width: 20.w),
+                    Text(
+                      I18nContent.SEARCHFAVORITES.tr,
+                      style: TextStyle(color: CommonColors.unimportanceColor),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
+  }
+
+  Widget _categoryItem({
+    String imgUrl = '',
+    required Icon icon,
+    required String title,
+  }) {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          icon,
-          SizedBox(
-            height: 10.h,
-          ),
+          imgUrl.isEmpty
+              ? icon
+              : SizedBox(
+                  width: 46.w,
+                  height: 46.w,
+                  child: Image.asset(
+                    imgUrl,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+          // SizedBox(
+          //   height: 10.h,
+          // ),
           Text(
             title,
             style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold),
@@ -145,64 +271,29 @@ class HomeView extends GetView<HomeController> {
   Widget _category() {
     return Container(
       width: double.infinity,
-      height: 156.h,
+      height: 160.h,
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: GridView.count(
-        crossAxisCount: 4,
-        crossAxisSpacing: 0,
-        childAspectRatio: 1,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          _categoryItem(
-              Icon(
-                LdIcon.phone,
-                color: CommonColors.themeColor,
-              ),
-              '手机'),
-          _categoryItem(
-              Icon(
-                LdIcon.phone,
-                color: CommonColors.themeColor,
-              ),
-              '手机'),
-          _categoryItem(
-              Icon(
-                LdIcon.phone,
-                color: CommonColors.themeColor,
-              ),
-              '手机'),
-          _categoryItem(
-              Icon(
-                LdIcon.phone,
-                color: CommonColors.themeColor,
-              ),
-              '手机'),
-          _categoryItem(
-              Icon(
-                LdIcon.phone,
-                color: CommonColors.themeColor,
-              ),
-              '手机'),
-          _categoryItem(
-              Icon(
-                LdIcon.phone,
-                color: CommonColors.themeColor,
-              ),
-              '手机'),
-          _categoryItem(
-              Icon(
-                LdIcon.phone,
-                color: CommonColors.themeColor,
-              ),
-              '手机'),
-          _categoryItem(
-              Icon(
-                LdIcon.package,
-                color: CommonColors.themeColor,
-              ),
-              '手机'),
-        ],
-      ),
+          crossAxisCount: 4,
+          crossAxisSpacing: 0,
+          childAspectRatio: 1,
+          physics: const NeverScrollableScrollPhysics(),
+          children: List.generate(8, (index) {
+            var e = controller.categoryList[index];
+            if (index == 7) {
+              return _categoryItem(
+                  icon: Icon(
+                    Icons.view_cozy,
+                    size: 46.w,
+                    color: CommonColors.themeColor,
+                  ),
+                  title: I18nContent.ALL.tr);
+            }
+            return _categoryItem(
+                icon: const Icon(Icons.add),
+                imgUrl: e['images'],
+                title: e['name']);
+          })),
     );
   }
 
@@ -227,25 +318,33 @@ class HomeView extends GetView<HomeController> {
   }
 
   /// 单个商品
-  Widget _commodity() {
+  Widget _commodity(
+      {required String imgUrl,
+      required String title,
+        required double price,
+      double distance = 0,
+      double score = 0,
+      double collectNum = 0}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Image.network(
-          "https://fastcdn.hoyoverse.com/content-v2/hk4e/122892/133ba31bce0ff2577de049e395ebfc5c_683894240453798045.jpg",
+          imgUrl,
           fit: BoxFit.cover,
         ),
         SizedBox(
           height: 10.h,
         ),
+        distance == 0
+            ? const Text('')
+            : Text(
+                '$distance',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                ),
+              ),
         Text(
-          "15km",
-          style: TextStyle(
-            fontSize: 12.sp,
-          ),
-        ),
-        Text(
-          '女大学生自用',
+          title,
           style: TextStyle(
               fontSize: 13.sp,
               color: Colors.black,
@@ -259,12 +358,14 @@ class HomeView extends GetView<HomeController> {
               Icons.star,
               color: Color(0xFFEC6400),
             ),
-            Text("4.9"),
+            Text('${score == 0 ? '' : score}'),
             SizedBox(
               width: 8.w,
             ),
-            Text("200"),
-            const Text("+收藏")
+            collectNum == 0
+                ? const Text('')
+                : Text('$collectNum ${I18nContent.COLLECT.tr}'),
+            Text('${I18nContent.UNIT.tr} $price',style: const TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)
           ],
         )
       ],
@@ -275,14 +376,19 @@ class HomeView extends GetView<HomeController> {
   Widget _productList() {
     return MasonryGridView.count(
       padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
-      itemCount: 10,
+      itemCount: controller.productList.length,
       crossAxisCount: 2,
       mainAxisSpacing: 16.w,
       crossAxisSpacing: 10.h,
       shrinkWrap: true, // 添加这一行以确保网格视图的高度能够根据内容自适应
       physics: const NeverScrollableScrollPhysics(), // 禁用滚动，因为它将放在一个滚动的列表视图中
-      itemBuilder: (context,index){
-        return _commodity();
+      itemBuilder: (context, index) {
+        var e = controller.productList[index];
+        return _commodity(
+          imgUrl: e['image'],
+          title: e['title'],
+          price: double.parse(e['price']),
+        );
       },
     );
   }
@@ -290,20 +396,22 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          _top(),
-          SizedBox(
-            height: 33.h,
-          ),
-          //  分类
-          _category(),
-          // 猜你喜欢
-          _favorite(),
-          // 商品列表
-          _productList(),
-        ],
-      ),
+      // appBar: _appBar(),
+      body: Obx(() => ListView(
+            controller: controller.scrollController,
+            children: [
+              _top(),
+              SizedBox(
+                height: 33.h,
+              ),
+              //  分类
+              _category(),
+              // 猜你喜欢
+              _favorite(),
+              // 商品列表
+              _productList(),
+            ],
+          )),
     );
   }
 }

@@ -18,17 +18,20 @@ class LdIcon extends IconData {
   static final IconData my = getIcon(code: IconCode.MY);
   static final IconData message = getIcon(code: IconCode.MESSAGE);
 
-  /// 分类
-  static final IconData phone = getIcon(code: IconCode.PHONE);
-  static final IconData computer = getIcon(code: IconCode.COMPUTER);
-  static final IconData car = getIcon(code: IconCode.CAR);
-  static final IconData clothes = getIcon(code: IconCode.CLOTHES);
-  static final IconData book = getIcon(code: IconCode.PHONE);
-  static final IconData bed = getIcon(code: IconCode.BED);
-  static final IconData package = getIcon(code: IconCode.PACKAGE);
-  static final IconData music_inst = getIcon(code: IconCode.MUSICAL_INST);
-  static final IconData house = getIcon(code: IconCode.HOUSE);
-  static final IconData game = getIcon(code: IconCode.GAME);
-  static final IconData other = getIcon(code: IconCode.OTHER);
-  static final IconData all = getIcon(code: IconCode.ALL);
+  // 客服
+  static final IconData service = getIcon(code: IconCode.SERVICE);
+
+  // /// 分类
+  // static final IconData phone = getIcon(code: IconCode.PHONE);
+  // static final IconData computer = getIcon(code: IconCode.COMPUTER);
+  // static final IconData car = getIcon(code: IconCode.CAR);
+  // static final IconData clothes = getIcon(code: IconCode.CLOTHES);
+  // static final IconData book = getIcon(code: IconCode.PHONE);
+  // static final IconData bed = getIcon(code: IconCode.BED);
+  // static final IconData package = getIcon(code: IconCode.PACKAGE);
+  // static final IconData music_inst = getIcon(code: IconCode.MUSICAL_INST);
+  // static final IconData house = getIcon(code: IconCode.HOUSE);
+  // static final IconData game = getIcon(code: IconCode.GAME);
+  // static final IconData other = getIcon(code: IconCode.OTHER);
+  // static final IconData all = getIcon(code: IconCode.ALL);
 }

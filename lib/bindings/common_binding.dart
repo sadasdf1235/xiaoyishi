@@ -5,6 +5,8 @@ import '../../controllers/user_controller.dart';
 import '../../controllers/message_controller.dart';
 import '../../controllers/discover_controller.dart';
 import '../../controllers/home_controller.dart';
+import '../../controllers/other/release_idle_controller.dart';
+
 class CommonBinding extends Bindings {
   @override
   void dependencies() {
@@ -13,5 +15,6 @@ class CommonBinding extends Bindings {
     Get.lazyPut<DiscoverController>(() => DiscoverController());
     Get.lazyPut<MessageController>(() => MessageController());
     Get.lazyPut<UserController>(() => UserController());
+    // Get.lazyPut<ReleaseIdleController>(() => ReleaseIdleController());
   }
 }

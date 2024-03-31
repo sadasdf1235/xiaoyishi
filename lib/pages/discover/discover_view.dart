@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:xiaoyishi/constants/I18n_content.dart';
 
 import '../../widgets/space_around.dart';
 
@@ -29,13 +30,15 @@ class DiscoverView extends GetView {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        /// 用户名
                         Text("大佬"),
                         Row(
                           children: [
-                            Text("吃瓜群众"),
+                            Text(I18nContent.PERSONTAG.tr),
                             SizedBox(
                               width: 10.w,
                             ),
+                            /// 粉丝
                             Text("234粉丝"),
                           ],
                         )
@@ -46,7 +49,7 @@ class DiscoverView extends GetView {
                 rightChild: ElevatedButton(
                   onPressed: () {},
                   child: Row(
-                    children: [Icon(Icons.add), Text("关注")],
+                    children: [Icon(Icons.add,color: Colors.grey,), Text(I18nContent.ATTENTION.tr,style: TextStyle(color: Colors.grey),)],
                   ),
                 ),
                 height: 50.h),

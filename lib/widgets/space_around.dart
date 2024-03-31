@@ -31,6 +31,7 @@ class SpaceAround extends StatelessWidget {
         color: color,
       ),
       child: Stack(
+        alignment: Alignment.center,
         children: [
           Positioned(left: left, child: leftChild,),
           Positioned(right: right, child: rightChild,),
