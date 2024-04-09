@@ -90,6 +90,10 @@ class I18nContent {
   static const String REMEMMBERPASSWORD = 'Remember the password';
   static const String FORGETPASSWORD = 'Forget the password';
   static const String GETCODE = 'Get code';
+  static const String MESSAGE = 'Message';
+  static const String SHARE = 'Share';
+  static const String LIKE = 'Like';
+  static const String FORUM = 'Forum';
 
   /// 文字
   static const String LOCATION = "Location";

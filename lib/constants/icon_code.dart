@@ -9,6 +9,12 @@ class IconCode {
 
   // 客服
   static const int SERVICE = 0xe625;
+  // 发布的
+  static const int POSTED = 0xec46;
+  // 卖出的
+  static const int SOLD = 0xe60a;
+  // 买到的
+  static const int PURCHASED = 0xe682;
 
   /// Category
   // //  包表首饰

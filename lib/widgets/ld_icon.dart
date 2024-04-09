@@ -20,6 +20,9 @@ class LdIcon extends IconData {
 
   // 客服
   static final IconData service = getIcon(code: IconCode.SERVICE);
+  static final IconData posted = getIcon(code: IconCode.POSTED);
+  static final IconData sold = getIcon(code: IconCode.SOLD);
+  static final IconData purchased = getIcon(code: IconCode.PURCHASED);
 
   // /// 分类
   // static final IconData phone = getIcon(code: IconCode.PHONE);

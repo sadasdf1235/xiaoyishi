@@ -48,6 +48,8 @@ class Messages extends Translations {
       I18nContent.SETTING : '设置',
       I18nContent.HELP : '帮助',
       I18nContent.LOCATION: '位置',
+      I18nContent.SIGNUP : '登录',
+      I18nContent.SIGNIN : '注册',
       I18nContent.SEARCHFAVORITES : '搜你喜欢',
       I18nContent.GUESSLIKE : '猜你喜欢',
       I18nContent.SEEALL : '查看全部',
@@ -69,6 +71,10 @@ class Messages extends Translations {
       I18nContent.FORGETPASSWORD : '忘记密码',
       I18nContent.GETCODE : '获取验证码',
       I18nContent.RECENTSEARCH : '最近搜素',
+      I18nContent.MESSAGE : '消息',
+      I18nContent.SHARE : '分享',
+      I18nContent.LIKE : '点赞',
+      I18nContent.FORUM : '论坛',
 
       /// 文字
       I18nContent.FANS : '粉丝',
@@ -118,6 +124,8 @@ class Messages extends Translations {
       I18nContent.SETTING : I18nContent.SETTING,
       I18nContent.HELP : I18nContent.HELP,
       I18nContent.AGREE : I18nContent.AGREE,
+      I18nContent.SIGNUP : I18nContent.SIGNUP,
+      I18nContent.SIGNIN : I18nContent.SIGNIN,
       // 收藏
       I18nContent.COLLECT : I18nContent.COLLECT,
       I18nContent.HISTORY : I18nContent.HISTORY,
@@ -152,6 +160,10 @@ class Messages extends Translations {
       I18nContent.FORGETPASSWORD : I18nContent.FORGETPASSWORD,
       I18nContent.GETCODE : I18nContent.GETCODE,
       I18nContent.RECENTSEARCH : I18nContent.RECENTSEARCH,
+      I18nContent.MESSAGE : I18nContent.MESSAGE,
+      I18nContent.SHARE : I18nContent.SHARE,
+      I18nContent.LIKE : I18nContent.LIKE,
+      I18nContent.FORUM : I18nContent.FORUM,
 
       ///  提示
       I18nContent.HINT: I18nContent.HINT,

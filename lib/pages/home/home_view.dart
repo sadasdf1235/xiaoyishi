@@ -259,7 +259,7 @@ class HomeView extends GetView<HomeController> {
           //   height: 10.h,
           // ),
           Text(
-            title,
+            title.tr,
             style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold),
           )
         ],

@@ -1,8 +1,12 @@
 import 'package:get/get.dart';
 
+import '../../controllers/user_controller.dart';
+
 enum LoginMode { oneKey, password, verificationCode }
 
 class LoginController extends GetxController {
+  UserController userController = Get.put(UserController());
+
   RxBool isAgree = false.obs;
   Rx<LoginMode> loginMode = LoginMode.oneKey.obs;
   RxBool isShowPassword = false.obs;

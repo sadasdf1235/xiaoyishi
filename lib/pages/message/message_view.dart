@@ -27,9 +27,7 @@ class MessageView extends GetView<MessageController> {
                   context: context,
                   title: I18nContent.ALLREAD.tr,
                   middleText: I18nContent.ALLREADHINT.tr,
-                  onConfirm: () {
-
-                  });
+                  onConfirm: () {});
             },
             icon: const Icon(
               Icons.checklist,
@@ -45,7 +43,7 @@ class MessageView extends GetView<MessageController> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: InkWell(
-            onTap: (){
+            onTap: () {
               controller.invalidClick();
             },
             child: Container(
@@ -74,18 +72,18 @@ class MessageView extends GetView<MessageController> {
     );
   }
 
-  Widget _messageItem() {
+  Widget _messageItem(String avatar, String userName, String message,
+      String time, int unreadNum) {
     return Container(
       decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: Color(0xFFB9C0CA)))),
       child: ListTile(
-        leading: const CircleAvatar(
-          backgroundImage: NetworkImage(
-              "https://ts1.cn.mm.bing.net/th?id=OIP-C._YFRagbOM8FbGUSUJy-m6QAAAA&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"),
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(avatar),
         ),
-        title: Text("元气少女"),
+        title: Text(userName),
         subtitle: Text(
-          "互粉哦！关注你了",
+          message,
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
@@ -97,7 +95,7 @@ class MessageView extends GetView<MessageController> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text('04/12 09/34'),
+                  Text(time),
                   controller.isShowDeleteIcon.value
                       ? const Text('')
                       : SizedBox(
@@ -106,7 +104,7 @@ class MessageView extends GetView<MessageController> {
                           child: CircleAvatar(
                             backgroundColor: Colors.red,
                             child: Text(
-                              '2',
+                              '$unreadNum',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 10.sp,
@@ -120,7 +118,7 @@ class MessageView extends GetView<MessageController> {
               controller.isShowDeleteIcon.value
                   ? IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       color: Colors.red,
                     )
                   : const Text('')
@@ -142,16 +140,16 @@ class MessageView extends GetView<MessageController> {
     return Obx(() => Scaffold(
           appBar: _appBar(context),
           body: GestureDetector(
-            onTap: (){
-                controller.invalidClick();
+            onTap: () {
+              controller.invalidClick();
             },
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 16.w),
               child: ListView(
-                children: [
-                  _messageItem(),
-                  _messageItem(),
-                ],
+                children: controller.messageList.map((e) {
+                  return _messageItem(e['avatar'], e['userName'], e['message'],
+                      e['lastMessageTime'], int.parse(e['unreadNum']));
+                }).toList(),
               ),
             ),
           ),

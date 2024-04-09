@@ -5,7 +5,7 @@ import '../pages/home/home_view.dart';
 import '../pages/discover/discover_view.dart';
 import '../pages/message/message_view.dart';
 import '../pages/user/user_view.dart';
-import '../pages/other/release_idle/release_idle_view.dart';
+import '../pages/other/release/release_view.dart';
 import '../pages/other/login/login_view.dart';
 import '../pages/other/search/search_view.dart';
 // part 'app_routes.dart';
@@ -39,8 +39,8 @@ class AppPages {
       page: () => const UserView(),
     ),
     GetPage(
-      name: Routes.RELEASE_IDLE,
-      page: () => const ReleaseIdleView(),
+      name: Routes.RELEASE,
+      page: () => const ReleaseView(),
     ),
     GetPage(
       name: Routes.LOGIN,

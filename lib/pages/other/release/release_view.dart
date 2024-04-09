@@ -11,8 +11,8 @@ import '../../../controllers/home_controller.dart';
 import '../../../extension/throttle_extension.dart';
 import '../../../constants/common_colors.dart';
 
-class ReleaseIdleView extends GetView<ReleaseIdleController> {
-  const ReleaseIdleView({super.key});
+class ReleaseView extends GetView<ReleaseIdleController> {
+  const ReleaseView({super.key});
 
   @override
   Widget build(BuildContext context) {

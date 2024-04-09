@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../constants/I18n_content.dart';
+import '../widgets/ld_icon.dart';
+import '../../routes/app_routes.dart';
+import '../../constants/release_way.dart';
 
 class UserController extends GetxController{
+  String defaultAvatar = 'assets/images/avatar.png';
+  String defaultRelease = 'assets/images/user_bk.png';
   List<Map<String,dynamic>> recordItemList = [
     {
       'topText' : '0',
@@ -22,20 +27,26 @@ class UserController extends GetxController{
       'routerName' : '',
     },
     {
-      'iconData' : Icons.add,
+      'iconData' : LdIcon.posted,
       'bottomText' : I18nContent.POSTED.tr,
       'routerName' : '',
     },
     {
-      'iconData' : Icons.add,
+      'iconData' : LdIcon.sold,
       'bottomText' : I18nContent.SOLD.tr,
       'routerName' : '',
     },
     {
-      'iconData' : Icons.add,
+      'iconData' : LdIcon.purchased,
       'bottomText' : I18nContent.PURCHASED.tr,
       'routerName' : '1',
     },
   ];
   RxBool isLogin = false.obs;
+
+  void toRelease(){
+    Get.toNamed(Routes.RELEASE,arguments: {
+      'way' : ReleaseWay.idle
+    });
+  }
 }

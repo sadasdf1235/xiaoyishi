@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:xiaoyishi/constants/I18n_content.dart';
 
+import '../../constants/I18n_content.dart';
 import '../../widgets/space_around.dart';
+import '../../controllers/discover_controller.dart';
+import '../../constants/release_way.dart';
+import '../../routes/app_routes.dart';
 
-class DiscoverView extends GetView {
+class DiscoverView extends GetView<DiscoverController> {
   const DiscoverView({super.key});
 
-  Widget _card() {
+  Widget _card(String avatar, String userName, int fansNum, String title,
+      String textPart, List images) {
     return Padding(
       padding: EdgeInsets.all(10.w),
       child: Card(
@@ -20,26 +24,29 @@ class DiscoverView extends GetView {
                   children: [
                     ClipOval(
                       child: Image.network(
-                        "https://c-ssl.dtstatic.com/uploads/blog/202208/01/20220801204303_cef03.thumb.400_0.jpeg",
+                        avatar,
                         fit: BoxFit.cover,
                         width: 50.w,
                         height: 50.h,
                       ),
                     ),
-                    SizedBox(width: 5.w,),
+                    SizedBox(
+                      width: 5.w,
+                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         /// 用户名
-                        Text("大佬"),
+                        Text(userName),
                         Row(
                           children: [
                             Text(I18nContent.PERSONTAG.tr),
                             SizedBox(
                               width: 10.w,
                             ),
+
                             /// 粉丝
-                            Text("234粉丝"),
+                            Text("$fansNum ${I18nContent.FANS.tr}"),
                           ],
                         )
                       ],
@@ -49,46 +56,59 @@ class DiscoverView extends GetView {
                 rightChild: ElevatedButton(
                   onPressed: () {},
                   child: Row(
-                    children: [Icon(Icons.add,color: Colors.grey,), Text(I18nContent.ATTENTION.tr,style: TextStyle(color: Colors.grey),)],
+                    children: [
+                      const Icon(
+                        Icons.add,
+                        color: Colors.grey,
+                      ),
+                      Text(
+                        I18nContent.ATTENTION.tr,
+                        style: const TextStyle(color: Colors.grey),
+                      )
+                    ],
                   ),
                 ),
                 height: 50.h),
-            SizedBox(
-              height: 10.h,
-            ),
+            // SizedBox(
+            //   height: 10.h,
+            // ),
             Container(
               color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '这是标题哦！',
+                    title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                    textPart,
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 100.h,
-                    child: GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 5.w,
-                            crossAxisSpacing: 5.w,
-                            childAspectRatio: 1.0),
-                        itemBuilder: (context, index) {
-                          return Image.network(
-                            "https://c-ssl.dtstatic.com/uploads/blog/202208/01/20220801204309_f6dd8.thumb.400_0.jpeg",
-                            fit: BoxFit.cover,
-                          );
-                        }),
-                  ),
+                  images.isNotEmpty
+                      ? SizedBox(
+                          width: double.infinity,
+                          height: 100.h,
+                          child: GridView.builder(
+                              shrinkWrap: true,
+                              itemCount: images.length,
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      mainAxisSpacing: 5.w,
+                                      crossAxisSpacing: 5.w,
+                                      childAspectRatio: 1.0),
+                              itemBuilder: (context, index) {
+                                return Image.network(
+                                  images[index],
+                                  fit: BoxFit.cover,
+                                );
+                              }),
+                        )
+                      : const Text(''),
                   SizedBox(
                     height: 10.h,
                   ),
@@ -102,8 +122,8 @@ class DiscoverView extends GetView {
                             color: Colors.black38,
                           ),
                           label: Text(
-                            "分享",
-                            style: TextStyle(
+                            I18nContent.SHARE.tr,
+                            style: const TextStyle(
                               color: Colors.black38,
                             ),
                           )),
@@ -114,8 +134,8 @@ class DiscoverView extends GetView {
                             color: Colors.black38,
                           ),
                           label: Text(
-                            "消息",
-                            style: TextStyle(
+                            I18nContent.MESSAGE.tr,
+                            style: const TextStyle(
                               color: Colors.black38,
                             ),
                           )),
@@ -126,8 +146,8 @@ class DiscoverView extends GetView {
                             color: Colors.black38,
                           ),
                           label: Text(
-                            "点赞",
-                            style: TextStyle(
+                            I18nContent.LIKE.tr,
+                            style: const TextStyle(
                               color: Colors.black38,
                             ),
                           )),
@@ -142,13 +162,44 @@ class DiscoverView extends GetView {
     );
   }
 
+  PreferredSizeWidget _appBar() {
+    return PreferredSize(
+        preferredSize: Size.fromHeight(40.h),
+        child: AppBar(
+              title: Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Text(
+                    I18nContent.ATTENTION.tr,
+                    style: TextStyle(fontSize: 18.sp),
+                  ),
+                  SizedBox(width: 8.w),
+                  Text(
+                    I18nContent.FORUM.tr,
+                    style: TextStyle(fontSize: 25.sp),
+                  ),
+                ],
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(I18nContent.RELEASE.tr),
+                ),
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _appBar(),
       body: ListView.builder(
-        itemCount: 10,
+        itemCount: controller.postList.length,
         itemBuilder: (context, index) {
-          return _card();
+          var e = controller.postList[index];
+          return _card(e['avatar'], e['userName'], int.parse(e['fansNum']),
+              e['title'], e['textPart'], e['images']);
         },
       ),
     );

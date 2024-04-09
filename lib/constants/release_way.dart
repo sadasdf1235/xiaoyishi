@@ -1,0 +1,4 @@
+enum ReleaseWay{
+  idle,
+  post
+}

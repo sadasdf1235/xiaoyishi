@@ -8,6 +8,7 @@ import '../../constants/common_colors.dart';
 import '../../widgets/space_around.dart';
 import '../../controllers/user_controller.dart';
 import '../../routes/app_routes.dart';
+import '../../constants/release_way.dart';
 
 class UserView extends GetView<UserController> {
   const UserView({super.key});
@@ -51,8 +52,12 @@ class UserView extends GetView<UserController> {
                     height: 64.h,
                     child: CircleAvatar(
                       radius: 32.w,
-                      backgroundImage: const NetworkImage(
-                          "https://ts2.cn.mm.bing.net/th?id=OIP-C.54qlbLNAZ64K94c_DCT-qAAAAA&w=166&h=166&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"),
+                      backgroundImage: controller.defaultAvatar != ''
+                          ? AssetImage(controller.defaultAvatar)
+                      // TODO
+                          : const NetworkImage(
+                                  "https://ts2.cn.mm.bing.net/th?id=OIP-C.54qlbLNAZ64K94c_DCT-qAAAAA&w=166&h=166&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2")
+                              as ImageProvider<Object>,
                     ),
                   ),
                   SizedBox(width: 16.w), // 头像与标题之间的间距
@@ -89,8 +94,8 @@ class UserView extends GetView<UserController> {
                           onTap: () {
                             Get.toNamed(Routes.LOGIN);
                           },
-                          child: const Text(
-                              '${I18nContent.SIGNIN}/${I18nContent.SIGNUP} >'),
+                          child: Text(
+                              '${I18nContent.SIGNIN.tr}/${I18nContent.SIGNUP.tr} >'),
                         ),
                   const Spacer(), // 标题与按钮之间的间距
                   InkWell(
@@ -132,7 +137,7 @@ class UserView extends GetView<UserController> {
               width: 80.w,
               height: 80.w,
               child: Image.asset(
-                'assets/images/user_bk.png',
+                controller.defaultRelease,
                 fit: BoxFit.contain,
               )),
           Column(
@@ -141,7 +146,7 @@ class UserView extends GetView<UserController> {
               Text(I18nContent.USER_TAGLINE.tr),
               TextButton.icon(
                   onPressed: () {
-                    Get.toNamed(Routes.RELEASE_IDLE);
+                    controller.toRelease();
                   },
                   icon: const Icon(
                     Icons.keyboard_arrow_right,

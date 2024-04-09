@@ -9,7 +9,7 @@ class Routes {
   static const USER = "/user";
 
   // 发布闲置页
-  static const RELEASE_IDLE = "/release_idle";
+  static const RELEASE = "/release";
   static const LOGIN = '/login';
   static const SEARCH = '/search';
 }
