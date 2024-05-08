@@ -124,7 +124,9 @@ class ReleaseView extends GetView<ReleaseIdleController> {
                             // 图片上传
                             IconButton(
                               iconSize: 80.w,
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.selectMultiImage();
+                              },
                               icon: const Icon(
                                 Icons.image,
                                 color: Colors.grey,

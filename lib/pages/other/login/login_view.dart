@@ -8,6 +8,8 @@ import '../../../controllers/other/login_controller.dart';
 import '../../../widgets/ld_icon.dart';
 import '../../../constants/I18n_content.dart';
 import '../../../widgets/space_around.dart';
+import '../../../routes/app_routes.dart';
+import '../../../extension/throttle_extension.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
@@ -72,167 +74,198 @@ class LoginView extends GetView<LoginController> {
 
   Widget _otherModeBody(context) {
     bool showPas = controller.loginMode.value == LoginMode.password;
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // title
-          Text(
-            controller.loginMode.value == LoginMode.password
-                ? I18nContent.ACCPASLOGIN.tr
-                : I18nContent.CODELOGIN.tr,
-            style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 32.h,
-          ),
-          // 手机号
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(100.r)),
-              border: Border.all(width: 1, color: Colors.grey),
-              color: Colors.white,
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.phone_iphone),
-                hintText: I18nContent.INPUTPHONE.tr,
-                border: InputBorder.none,
-                counterText: '',
-                // contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
+    return Obx(() => SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // title
+              Text(
+                controller.loginMode.value == LoginMode.password
+                    ? I18nContent.ACCPASLOGIN.tr
+                    : I18nContent.CODELOGIN.tr,
+                style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
               ),
-            ),
-          ),
-          SizedBox(
-            height: 24.h,
-          ),
-          // 密码 验证码
-          showPas
-              ? Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(100.r)),
-                    border: Border.all(width: 1, color: Colors.grey),
-                    color: Colors.white,
+              SizedBox(
+                height: 32.h,
+              ),
+              // 手机号
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(100.r)),
+                  border: Border.all(width: 1, color: Colors.grey),
+                  color: Colors.white,
+                ),
+                child: TextField(
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.phone_iphone),
+                    hintText: I18nContent.INPUTPHONE.tr,
+                    border: InputBorder.none,
+                    counterText: '',
+                    // contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
                   ),
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.lock_outline),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          controller.changePasswordShow();
-                        },
-                        icon: controller.isShowPassword.value
-                            ? const Icon(Icons.visibility)
-                            : const Icon(Icons.visibility_off),
+                  onChanged: (value) {
+                    controller.changePhone(value);
+                  }.throttleValue(),
+                ),
+              ),
+              SizedBox(
+                height: 24.h,
+              ),
+              // 密码 验证码
+              showPas
+                  ? Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(100.r)),
+                        border: Border.all(width: 1, color: Colors.grey),
+                        color: Colors.white,
                       ),
-                      hintText: I18nContent.INPUTPASSWORD.tr,
-                      border: InputBorder.none,
-                      counterText: '',
+                      child: TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.lock_outline),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              controller.changePasswordShow();
+                            },
+                            icon: controller.isShowPassword.value
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off),
+                          ),
+                          hintText: I18nContent.INPUTPASSWORD.tr,
+                          border: InputBorder.none,
+                          counterText: '',
+                        ),
+                      ),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(100.r)),
+                        border: Border.all(width: 1, color: Colors.grey),
+                        color: Colors.white,
+                      ),
+                      child: TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.verified_user),
+                          suffixIcon: controller.isShowCode.value
+                              ? ElevatedButton(
+                                  onPressed: () {
+                                    // 开始60秒倒计时
+                                    controller.countDown();
+                                    controller.getCode();
+                                  },
+                                  child: Text(I18nContent.GETCODE.tr),
+                                )
+                              : ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text('${controller.count}'),
+                                ),
+                          hintText: I18nContent.INPUTCODE.tr,
+                          border: InputBorder.none,
+                          counterText: '',
+                        ),
+                      ),
                     ),
-                  ),
-                )
-              : Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(100.r)),
-                    border: Border.all(width: 1, color: Colors.grey),
-                    color: Colors.white,
-                  ),
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.verified_user),
-                      suffixIcon: ElevatedButton(
+              showPas
+                  ? SizedBox(
+                      height: 12.h,
+                    )
+                  : const Text(''),
+              // 记住密码 忘记密码
+              showPas
+                  ? SpaceAround(
+                      leftChild: Row(
+                        children: [
+                          _checkBox(),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          Text(I18nContent.REMEMMBERPASSWORD.tr),
+                        ],
+                      ),
+                      rightChild: TextButton(
                         onPressed: () {},
-                        child: Text(I18nContent.GETCODE.tr),
+                        child: Text(
+                          I18nContent.FORGETPASSWORD.tr,
+                          style: const TextStyle(color: Color(0xFF165DFF)),
+                        ),
                       ),
-                      hintText: I18nContent.INPUTPASSWORD.tr,
-                      border: InputBorder.none,
-                      counterText: '',
+                      height: 20.h)
+                  : const Text(''),
+              SizedBox(
+                height: showPas ? 56.h : 24.h,
+              ),
+              // 协议
+              ConstrainedBox(
+                constraints:
+                    BoxConstraints(maxWidth: MediaQuery.of(context).size.width),
+                child: Row(
+                  children: [
+                    _checkBox(),
+                    SizedBox(
+                      width: 5.w,
                     ),
-                  ),
+                    Expanded(
+                        child: RichText(
+                            softWrap: true,
+                            // overflow: TextOverflow.ellipsis,
+                            text: TextSpan(children: [
+                              TextSpan(
+                                text: I18nContent.AGREE.tr,
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                              TextSpan(
+                                text: '《${I18nContent.PLATFORMSERVER.tr}》',
+                                style:
+                                    const TextStyle(color: Color(0xFF7da4fd)),
+                              ),
+                              TextSpan(
+                                text: I18nContent.AND.tr,
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                              TextSpan(
+                                text: '《${I18nContent.PRIVACYPOLICY.tr}》',
+                                style:
+                                    const TextStyle(color: Color(0xFF7da4fd)),
+                              ),
+                            ])))
+                  ],
                 ),
-          showPas
-              ? SizedBox(
-                  height: 12.h,
-                )
-              : const Text(''),
-          showPas
-              ? SpaceAround(
-                  leftChild: Row(
-                    children: [
-                      _checkBox(),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      Text(I18nContent.REMEMMBERPASSWORD.tr),
-                    ],
-                  ),
-                  rightChild: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      I18nContent.FORGETPASSWORD.tr,
-                      style: const TextStyle(color: Color(0xFF165DFF)),
-                    ),
-                  ),
-                  height: 20.h)
-              : const Text(''),
-          SizedBox(
-            height: showPas ? 56.h : 24.h,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              // 登录
+              ElevatedButton(
+                onPressed: () {
+                  if(controller.isAgree.value){
+                    // Get.offNamed(Routes.USER);
+                    Get.back();
+                    controller.userController.changeLoginStatus(true);
+                  }else{
+                    Get.snackbar(I18nContent.HINT.tr, I18nContent.AGREEPRO.tr,backgroundColor: Colors.white,);
+                  }
+                },
+                child: Text(I18nContent.SIGNUP.tr),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              TextButton(
+                  onPressed: () {
+                    controller.changeLoginMode(showPas
+                        ? LoginMode.verificationCode
+                        : LoginMode.password);
+                  },
+                  child: Text(showPas
+                      ? I18nContent.CODELOGIN.tr
+                      : I18nContent.ACCPASLOGIN.tr)),
+            ],
           ),
-          // 协议
-          ConstrainedBox(
-            constraints:
-                BoxConstraints(maxWidth: MediaQuery.of(context).size.width),
-            child: Row(
-              children: [
-                _checkBox(),
-                SizedBox(
-                  width: 5.w,
-                ),
-                Expanded(
-                    child: RichText(
-                        softWrap: true,
-                        // overflow: TextOverflow.ellipsis,
-                        text: TextSpan(children: [
-                          TextSpan(
-                            text: I18nContent.AGREE.tr,
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                          TextSpan(
-                            text: '《${I18nContent.PLATFORMSERVER.tr}》',
-                            style: const TextStyle(color: Color(0xFF7da4fd)),
-                          ),
-                          TextSpan(
-                            text: I18nContent.AND.tr,
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                          TextSpan(
-                            text: '《${I18nContent.PRIVACYPOLICY.tr}》',
-                            style: const TextStyle(color: Color(0xFF7da4fd)),
-                          ),
-                        ])))
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          ElevatedButton(onPressed: () {}, child: Text(I18nContent.SIGNUP.tr)),
-          SizedBox(
-            height: 10.h,
-          ),
-          TextButton(
-              onPressed: () {
-                controller.changeLoginMode(LoginMode.verificationCode);
-              },
-              child: Text(showPas
-                  ? I18nContent.CODELOGIN.tr
-                  : I18nContent.ACCPASLOGIN.tr)),
-        ],
-      ),
-    );
+        ));
   }
 
   Widget _oneKeyBottom(context) {
@@ -269,6 +302,7 @@ class LoginView extends GetView<LoginController> {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
@@ -307,6 +341,7 @@ class LoginView extends GetView<LoginController> {
   Widget build(BuildContext context) {
     LoginController controller = Get.put(LoginController());
     return Obx(() => Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             leading: IconButton(
                 onPressed: () {

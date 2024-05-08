@@ -41,6 +41,8 @@ class Messages extends Translations {
       I18nContent.PROVIDESERVICE : '为您提供号码认证服务',
       I18nContent.INPUTPHONE : '请输入手机号',
       I18nContent.INPUTPASSWORD : '请输入6~12位密码',
+      I18nContent.INPUTCODE : '请输入您收到的验证码',
+      I18nContent.AGREEPRO : '请您先同意协议',
 
       /// 按钮
       I18nContent.CONFIRM : '确定',
@@ -75,6 +77,15 @@ class Messages extends Translations {
       I18nContent.SHARE : '分享',
       I18nContent.LIKE : '点赞',
       I18nContent.FORUM : '论坛',
+      I18nContent.COWRY : '宝贝',
+      I18nContent.CONTACTBUY : '联系买家',
+      I18nContent.CONTACTSELLER : '联系卖家',
+      I18nContent.OBLIGATION : '待付款',
+      I18nContent.DECOCKER : '待发货',
+      I18nContent.WAITFORREC : '待收货',
+      I18nContent.REMAINEVAL : '待评价',
+      I18nContent.BEINGREF : '退款中',
+      I18nContent.PRIVATELETTER : '私信',
 
       /// 文字
       I18nContent.FANS : '粉丝',
@@ -92,7 +103,17 @@ class Messages extends Translations {
       I18nContent.ACCPASLOGIN : '账号密码登录',
       I18nContent.CODELOGIN : '验证码登录',
       I18nContent.AND : '和',
-
+      I18nContent.NOINFO : '暂无消息',
+      I18nContent.NOINFOHINT : '在设置中打开通知功能，信息不会错过!',
+      I18nContent.NOPURCHASED : '暂无购买',
+      I18nContent.NOPURCHASEDHINT : '现在还没有购买任何东西哦！快去首页进行购买吧！',
+      I18nContent.NOSOLD : '你的钱包是空的',
+      I18nContent.NOSOLDHINT : '看来你的钱包里没钱了，继续售卖闲置物品吧！',
+      I18nContent.NORELEASED : '暂无发布',
+      I18nContent.NORELEASEDHINT : '暂无发布的商品！快去发布第一个商品吧！',
+      I18nContent.NOPOST : '暂无帖子',
+      I18nContent.NOHISTORY : '暂无历史',
+      I18nContent.NOCOLLECT : '暂无收藏',
 
     },
     'en_US': {
@@ -164,6 +185,15 @@ class Messages extends Translations {
       I18nContent.SHARE : I18nContent.SHARE,
       I18nContent.LIKE : I18nContent.LIKE,
       I18nContent.FORUM : I18nContent.FORUM,
+      I18nContent.COWRY : I18nContent.COWRY,
+      I18nContent.CONTACTBUY : I18nContent.CONTACTBUY,
+      I18nContent.CONTACTSELLER : I18nContent.CONTACTSELLER,
+      I18nContent.OBLIGATION : I18nContent.OBLIGATION,
+      I18nContent.DECOCKER : I18nContent.DECOCKER,
+      I18nContent.WAITFORREC : I18nContent.WAITFORREC,
+      I18nContent.REMAINEVAL : I18nContent.REMAINEVAL,
+      I18nContent.BEINGREF : I18nContent.BEINGREF,
+      I18nContent.PRIVATELETTER : I18nContent.PRIVATELETTER,
 
       ///  提示
       I18nContent.HINT: I18nContent.HINT,
@@ -185,6 +215,8 @@ class Messages extends Translations {
       I18nContent.PRIVACYPOLICY : I18nContent.PRIVACYPOLICY,
       I18nContent.INPUTPHONE : I18nContent.INPUTPHONE,
       I18nContent.INPUTPASSWORD : I18nContent.INPUTPASSWORD,
+      I18nContent.INPUTCODE : I18nContent.INPUTCODE,
+      I18nContent.AGREEPRO : I18nContent.AGREEPRO,
 
       /// 文字
       I18nContent.TAGLINE : I18nContent.TAGLINE,
@@ -199,6 +231,17 @@ class Messages extends Translations {
       I18nContent.ACCPASLOGIN : I18nContent.ACCPASLOGIN,
       I18nContent.CODELOGIN : I18nContent.CODELOGIN,
       I18nContent.AND : I18nContent.AND,
+      I18nContent.NOINFO : I18nContent.NOINFO,
+      I18nContent.NOINFOHINT : I18nContent.NOINFOHINT,
+      I18nContent.NOPURCHASED : I18nContent.NOPURCHASED,
+      I18nContent.NOPURCHASEDHINT : I18nContent.NOPURCHASEDHINT,
+      I18nContent.NOSOLD : I18nContent.NOSOLD,
+      I18nContent.NOSOLDHINT : I18nContent.NOSOLDHINT,
+      I18nContent.NORELEASED : I18nContent.NORELEASED,
+      I18nContent.NORELEASEDHINT : I18nContent.NORELEASEDHINT,
+      I18nContent.NOPOST : I18nContent.NOPOST,
+      I18nContent.NOHISTORY : I18nContent.NOHISTORY,
+      I18nContent.NOCOLLECT : I18nContent.NOCOLLECT,
     }
   };
 }

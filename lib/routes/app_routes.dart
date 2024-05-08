@@ -12,4 +12,12 @@ class Routes {
   static const RELEASE = "/release";
   static const LOGIN = '/login';
   static const SEARCH = '/search';
+  static const COLLECT = '/collect';
+  static const HISTORY = '/history';
+  static const POST = '/post';
+  static const RELEASED = '/released';
+  static const SOLD = '/sold';
+  static const PURCHASED = '/purchased';
+  static const PRODUCT_DETAIL = '/product_detail';
+  static const CHAT = '/chat';
 }

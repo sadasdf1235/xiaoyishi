@@ -14,39 +14,48 @@ class UserController extends GetxController{
     {
       'topText' : '0',
       'bottomText' : I18nContent.COLLECT.tr,
-      'routerName' : '',
+      'routerName' : Routes.COLLECT,
     },
     {
       'topText' : '0',
       'bottomText' : I18nContent.HISTORY.tr,
-      'routerName' : '',
+      'routerName' : Routes.HISTORY,
     },
     {
       'topText' : '0',
       'bottomText' : I18nContent.POST.tr,
-      'routerName' : '',
+      'routerName' : Routes.POST,
     },
     {
       'iconData' : LdIcon.posted,
       'bottomText' : I18nContent.POSTED.tr,
-      'routerName' : '',
+      'routerName' : Routes.RELEASED,
     },
     {
       'iconData' : LdIcon.sold,
       'bottomText' : I18nContent.SOLD.tr,
-      'routerName' : '',
+      'routerName' : Routes.SOLD,
     },
     {
       'iconData' : LdIcon.purchased,
       'bottomText' : I18nContent.PURCHASED.tr,
-      'routerName' : '1',
+      'routerName' : Routes.PURCHASED,
     },
   ];
   RxBool isLogin = false.obs;
 
+  // 去发布页
   void toRelease(){
+    if(!isLogin.value){
+      Get.toNamed(Routes.LOGIN);
+      return;
+    }
     Get.toNamed(Routes.RELEASE,arguments: {
       'way' : ReleaseWay.idle
     });
+  }
+  void changeLoginStatus(status){
+    isLogin.value = status;
+    update();
   }
 }

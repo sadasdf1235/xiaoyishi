@@ -19,7 +19,11 @@ class UserView extends GetView<UserController> {
       required String routerName}) {
     return InkWell(
       onTap: () {
-        // Get.toNamed(routerName);
+        if(!controller.isLogin.value){
+          Get.toNamed(Routes.LOGIN);
+          return;
+        }
+        Get.toNamed(routerName);
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -71,13 +75,13 @@ class UserView extends GetView<UserController> {
                                   fontSize: 20.sp, fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              'dasdasd',
-                              style: TextStyle(fontSize: 16.sp),
+                              'ID: 100396644',
+                              style: TextStyle(fontSize: 12.sp,color: Colors.grey),
                             ),
                             SizedBox(height: 8.h), // 标题与按钮之间的间距
                             Row(
                               children: [
-                                Text('${I18nContent.ATTENTION.tr} 1'),
+                                Text('${I18nContent.ATTENTION.tr} 0'),
                                 SizedBox(width: 5.w),
                                 Container(
                                   width: 1.w,
@@ -85,7 +89,7 @@ class UserView extends GetView<UserController> {
                                   color: Colors.black,
                                 ),
                                 SizedBox(width: 5.w),
-                                Text('${I18nContent.FANS.tr} 1'),
+                                Text('${I18nContent.FANS.tr} 0'),
                               ],
                             )
                           ],

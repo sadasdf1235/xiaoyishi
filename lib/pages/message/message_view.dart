@@ -8,6 +8,9 @@ import '../../constants/common_colors.dart';
 import '../../widgets/space_around.dart';
 import '../../widgets/ld_dialog.dart';
 import '../../controllers/message_controller.dart';
+import '../../routes/app_routes.dart';
+import '../../controllers/user_controller.dart';
+import '../../widgets/empty_status.dart';
 
 class MessageView extends GetView<MessageController> {
   const MessageView({super.key});
@@ -45,6 +48,7 @@ class MessageView extends GetView<MessageController> {
           child: InkWell(
             onTap: () {
               controller.invalidClick();
+              controller.toSearch();
             },
             child: Container(
               height: 40.h,
@@ -126,7 +130,9 @@ class MessageView extends GetView<MessageController> {
           ),
         ),
         // 点击
-        onTap: () {},
+        onTap: () {
+          Get.toNamed(Routes.CHAT);
+        },
         // 长按
         onLongPress: () {
           controller.updateIconShow();
@@ -137,6 +143,7 @@ class MessageView extends GetView<MessageController> {
 
   @override
   Widget build(BuildContext context) {
+    UserController userController = Get.find<UserController>();
     return Obx(() => Scaffold(
           appBar: _appBar(context),
           body: GestureDetector(
@@ -145,12 +152,21 @@ class MessageView extends GetView<MessageController> {
             },
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 16.w),
-              child: ListView(
-                children: controller.messageList.map((e) {
-                  return _messageItem(e['avatar'], e['userName'], e['message'],
-                      e['lastMessageTime'], int.parse(e['unreadNum']));
-                }).toList(),
-              ),
+              child: userController.isLogin.value && controller.messageList.isNotEmpty
+                  ? ListView(
+                      children: controller.messageList.map((e) {
+                        return _messageItem(
+                            e['avatar'],
+                            e['userName'],
+                            e['message'],
+                            e['lastMessageTime'],
+                            int.parse(e['unreadNum']));
+                      }).toList(),
+                    )
+                  : EmptyStatus(
+                      img: 'assets/images/no_info.png',
+                      title: I18nContent.NOINFO.tr,
+                      des: I18nContent.NOINFOHINT.tr),
             ),
           ),
         ));

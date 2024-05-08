@@ -10,6 +10,9 @@ class HttpsClient {
     dio.options.baseUrl = baseUrl;
     dio.options.connectTimeout = const Duration(seconds: 5);
     dio.options.receiveTimeout = const Duration(seconds: 5);
+    dio.options.headers =  {
+      'Authorization' : 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlMDNiZmI3NDZjMzM0NWMxOGE3NmU3Njc5MWMyMThjZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTcxMzg2MzU0MywiZXhwIjoxNzE1MDczMTQzfQ.EuURV8-FZi_uxDOk_xf7-r__xUkVSTn7LFaubMPCpAY',
+    };
   }
 
   // Map<String, dynamic>? query
@@ -31,17 +34,15 @@ class HttpsClient {
   }
 
   // upload
-  Future upload({required String url, required Map<String, dynamic> data}) async {
-    try {
-      return await dio.post(
-        url,
-        data: data,
-        onSendProgress: (int sent, int total) {
-          print('$sent $total');
-        },
-      );
-    } catch (e) {
-      print(e);
+  Future uploadFiles({required String url,required List files}) async {
+    Future<FormData> createFormData() async {
+      return FormData.fromMap({
+        'name': 'dio',
+        'date': DateTime.now().toIso8601String(),
+        'files': files.map((e) async => await MultipartFile.fromFile(e)).toList()
+      });
     }
+
+    return await dio.post(url, data: await createFormData());
   }
 }

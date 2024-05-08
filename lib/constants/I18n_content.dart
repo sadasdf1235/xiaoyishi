@@ -47,6 +47,8 @@ class I18nContent {
   static const String PRIVACYPOLICY = 'Privacy policy';
   static const String INPUTPHONE = 'Please enter your phone number';
   static const String INPUTPASSWORD = 'Please enter a password of 6 to 12 characters';
+  static const String INPUTCODE = 'Please enter the verification code you received';
+  static const String AGREEPRO = 'Please agree to the agreement first';
 
   ///  按钮
   static const String CONFIRM = 'Confirm';
@@ -78,7 +80,7 @@ class I18nContent {
   static const String HISTORY = "History";
   static const String POST = 'Post';
   // 我发布的 我卖出的 我买到的
-  static const String POSTED = 'Posted';
+  static const String POSTED = 'Released';
   static const String SOLD = 'Sold';
   static const String PURCHASED = 'Purchased';
   // 发布闲置
@@ -94,6 +96,22 @@ class I18nContent {
   static const String SHARE = 'Share';
   static const String LIKE = 'Like';
   static const String FORUM = 'Forum';
+  // 宝贝
+  static const String COWRY = 'Cowry';
+  static const String CONTACTBUY = 'Contact the buyer';
+  static const String CONTACTSELLER = 'Contact seller';
+  // 待付款
+  static const String OBLIGATION = 'Obligation';
+  // 待发货
+  static const String DECOCKER = 'Decocker';
+  // 待收货
+  static const String WAITFORREC = 'Wait'; //Wait for receiving
+  // 待评价
+  static const String REMAINEVAL = 'Evaluate';//Remain to be evaluated
+  // 退款中
+  static const String BEINGREF = 'Refund';//Being refunded
+  // 私信
+  static const String PRIVATELETTER = 'Private Letter';//private letter
 
   /// 文字
   static const String LOCATION = "Location";
@@ -116,5 +134,15 @@ class I18nContent {
   static const String ACCPASLOGIN = 'Account password login';
   static const String CODELOGIN = 'Verification code login';
   static const String AND = 'and';
-
+  static const String NOINFO = 'No information';
+  static const String NOINFOHINT = 'Turn on the notification function in the settings, the information will not be missed!';
+  static const String NOPURCHASED = 'No Purchases';
+  static const String NOPURCHASEDHINT = "Haven't bought anything yet! Go to the home page to buy!";
+  static const String NOSOLD = 'Your wallet is empty';
+  static const String NOSOLDHINT = 'Look like there are no credits in your wallet at the moment.Please continue to sell your unused items';
+  static const String NORELEASED = 'No Relesaed';
+  static const String NORELEASEDHINT = 'No released products! Go launch your first product!';
+  static const String NOPOST = 'No Post';
+  static const String NOHISTORY = 'No History';
+  static const String NOCOLLECT = 'No Collect';
 }

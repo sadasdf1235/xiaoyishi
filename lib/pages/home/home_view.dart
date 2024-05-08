@@ -101,8 +101,8 @@ class HomeView extends GetView<HomeController> {
           Positioned(
             bottom: 10.h,
             child: InkWell(
-              onTap: (){
-                Get.toNamed(Routes.SEARCH);
+              onTap: () {
+                Get.toNamed(Routes.SEARCH, arguments: {'come': 'home'});
               },
               child: Container(
                 width: 318.w,
@@ -125,8 +125,8 @@ class HomeView extends GetView<HomeController> {
                     ),
                     Text(
                       (I18nContent.SEARCHFAVORITES.tr),
-                      style:
-                          const TextStyle(color: CommonColors.unimportanceColor),
+                      style: const TextStyle(
+                          color: CommonColors.unimportanceColor),
                     )
                   ],
                 ),
@@ -319,9 +319,11 @@ class HomeView extends GetView<HomeController> {
 
   /// 单个商品
   Widget _commodity(
-      {required String imgUrl,
+      {required List images,
       required String title,
-        required double price,
+      required double price,
+      required String avatar,
+      required String userName,
       double distance = 0,
       double score = 0,
       double collectNum = 0}) {
@@ -329,7 +331,7 @@ class HomeView extends GetView<HomeController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Image.network(
-          imgUrl,
+          images[0],
           fit: BoxFit.cover,
         ),
         SizedBox(
@@ -365,7 +367,25 @@ class HomeView extends GetView<HomeController> {
             collectNum == 0
                 ? const Text('')
                 : Text('$collectNum ${I18nContent.COLLECT.tr}'),
-            Text('${I18nContent.UNIT.tr} $price',style: const TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)
+            Text(
+              '${I18nContent.UNIT.tr} $price',
+              style: const TextStyle(
+                  color: Colors.red, fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
+        Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: avatar.isEmpty
+                  ? const AssetImage('assets/images/avatar.png')
+                      as ImageProvider
+                  : NetworkImage(avatar),
+            ),
+            SizedBox(
+              width: 5.w,
+            ),
+            Text(userName),
           ],
         )
       ],
@@ -384,10 +404,23 @@ class HomeView extends GetView<HomeController> {
       physics: const NeverScrollableScrollPhysics(), // 禁用滚动，因为它将放在一个滚动的列表视图中
       itemBuilder: (context, index) {
         var e = controller.productList[index];
-        return _commodity(
-          imgUrl: e['image'],
-          title: e['title'],
-          price: double.parse(e['price']),
+        return InkWell(
+          onTap: () {
+            Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {
+              'images': e['image'],
+              'title': e['title'],
+              'price': double.parse(e['price']),
+              'userName': e['userName'],
+              'avatar': e['avatar'],
+              'describe': e['describe'],
+            });
+          },
+          child: _commodity(
+              images: e['image'],
+              title: e['title'],
+              price: double.parse(e['price']),
+              userName: e['userName'],
+              avatar: e['avatar']),
         );
       },
     );
