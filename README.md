@@ -2,10 +2,10 @@
 
 ### 效果展示
 
-1. <img src="C:\Users\ld\Pictures\校易市\Image_1720656942036.png" style="zoom:50%;" />
-2. <img src="C:\Users\ld\Pictures\校易市\Image_1720657018316.png" style="zoom:50%;" />
-3. <img src="C:\Users\ld\Pictures\校易市\Image_1720656943895.png" style="zoom:50%;" />
-4. <img src="C:\Users\ld\Pictures\校易市\Image_1720656945567.png" style="zoom:50%;" />
-5. <img src="C:\Users\ld\Pictures\校易市\Image_1720656947190.png" style="zoom:50%;" />
-6. <img src="C:\Users\ld\Pictures\校易市\Image_1720657013744.png" style="zoom:50%;" />
-7. <img src="C:\Users\ld\Pictures\校易市\Image_1720657016410.png" style="zoom:50%;" />
+1. 首页 <img src="https://xiao-yi-shi.oss-cn-shanghai.aliyuncs.com/xys_home1.png?Expires=1721055303&OSSAccessKeyId=TMP.3KipKDF485Yavp6Az5JhqBkfq1b6Ra61ToftmJVx4fAWghCJWsFCRJ2jmFanAYVxRVUx1vAWfsPWD8unnkEkPFMndwmZPM&Signature=OkF1QUmDujoXUL2o9op2WKyIjKM%3D)" style="zoom:50%;" />
+2. 首页 <img src="https://xiao-yi-shi.oss-cn-shanghai.aliyuncs.com/xys_home2.png?Expires=1721055317&OSSAccessKeyId=TMP.3KipKDF485Yavp6Az5JhqBkfq1b6Ra61ToftmJVx4fAWghCJWsFCRJ2jmFanAYVxRVUx1vAWfsPWD8unnkEkPFMndwmZPM&Signature=g0HPFqav%2BzKvluRAddiIUMHDU9E%3D" style="zoom:50%;" />
+3. 发现页 <img src="https://xiao-yi-shi.oss-cn-shanghai.aliyuncs.com/xys_discover.png?Expires=1721055350&OSSAccessKeyId=TMP.3KipKDF485Yavp6Az5JhqBkfq1b6Ra61ToftmJVx4fAWghCJWsFCRJ2jmFanAYVxRVUx1vAWfsPWD8unnkEkPFMndwmZPM&Signature=g9qqno8yBH6VLuwGJ%2FK8DsUj9V4%3D" style="zoom:50%;" />
+4. 消息页 <img src="https://xiao-yi-shi.oss-cn-shanghai.aliyuncs.com/xys_message.png?Expires=1721055366&OSSAccessKeyId=TMP.3KipKDF485Yavp6Az5JhqBkfq1b6Ra61ToftmJVx4fAWghCJWsFCRJ2jmFanAYVxRVUx1vAWfsPWD8unnkEkPFMndwmZPM&Signature=kjmVMdhrScGgm3bFDEeAePBIanQ%3D" style="zoom:50%;" />
+5. 个人中心 <img src="https://xiao-yi-shi.oss-cn-shanghai.aliyuncs.com/xys_me.png?Expires=1721055381&OSSAccessKeyId=TMP.3KipKDF485Yavp6Az5JhqBkfq1b6Ra61ToftmJVx4fAWghCJWsFCRJ2jmFanAYVxRVUx1vAWfsPWD8unnkEkPFMndwmZPM&Signature=ssOgkkHwO4uaZQiu2xnD8oQuMjk%3D" style="zoom:50%;" />
+6. 验证码登录 <img src="https://xiao-yi-shi.oss-cn-shanghai.aliyuncs.com/xys_login1.png?Expires=1721055395&OSSAccessKeyId=TMP.3KipKDF485Yavp6Az5JhqBkfq1b6Ra61ToftmJVx4fAWghCJWsFCRJ2jmFanAYVxRVUx1vAWfsPWD8unnkEkPFMndwmZPM&Signature=SOx%2FVmjvnPuZIikH1z83r5NWw9w%3D" style="zoom:50%;" />
+7. 密码登录 <img src="https://xiao-yi-shi.oss-cn-shanghai.aliyuncs.com/xys_login2.png?Expires=1721055408&OSSAccessKeyId=TMP.3KipKDF485Yavp6Az5JhqBkfq1b6Ra61ToftmJVx4fAWghCJWsFCRJ2jmFanAYVxRVUx1vAWfsPWD8unnkEkPFMndwmZPM&Signature=5cemQ66%2Fb9VNLgle5Wgm1jX45%2BE%3D" style="zoom:50%;" />
