@@ -19,7 +19,7 @@ class UserView extends GetView<UserController> {
       required String routerName}) {
     return InkWell(
       onTap: () {
-        if(!controller.isLogin.value){
+        if (!controller.isLogin.value) {
           Get.toNamed(Routes.LOGIN);
           return;
         }
@@ -56,51 +56,55 @@ class UserView extends GetView<UserController> {
                     height: 64.h,
                     child: CircleAvatar(
                       radius: 32.w,
-                      backgroundImage: controller.defaultAvatar != ''
+                      backgroundImage: !controller.isLogin.value ||
+                          controller.userInfo.value == null
                           ? AssetImage(controller.defaultAvatar)
-                      // TODO
-                          : const NetworkImage(
-                                  "https://ts2.cn.mm.bing.net/th?id=OIP-C.54qlbLNAZ64K94c_DCT-qAAAAA&w=166&h=166&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2")
-                              as ImageProvider<Object>,
+                          : NetworkImage(
+                          controller.userInfo.value!.avatarUrl)
+                      as ImageProvider<Object>,
                     ),
                   ),
                   SizedBox(width: 16.w), // 头像与标题之间的间距
-                  controller.isLogin.value
+                  controller.isLogin.value &&
+                      controller.userInfo.value != null
                       ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'dadasdadas',
-                              style: TextStyle(
-                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'ID: 100396644',
-                              style: TextStyle(fontSize: 12.sp,color: Colors.grey),
-                            ),
-                            SizedBox(height: 8.h), // 标题与按钮之间的间距
-                            Row(
-                              children: [
-                                Text('${I18nContent.ATTENTION.tr} 0'),
-                                SizedBox(width: 5.w),
-                                Container(
-                                  width: 1.w,
-                                  height: 12.h,
-                                  color: Colors.black,
-                                ),
-                                SizedBox(width: 5.w),
-                                Text('${I18nContent.FANS.tr} 0'),
-                              ],
-                            )
-                          ],
-                        )
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        controller.userInfo.value!.username,
+                        style: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'ID: ${controller.userInfo.value?.userId}',
+                        style: TextStyle(
+                            fontSize: 12.sp, color: Colors.grey),
+                      ),
+                      SizedBox(height: 8.h), // 标题与按钮之间的间距
+                      // 粉丝 关注
+                      Row(
+                        children: [
+                          Text('${I18nContent.ATTENTION.tr} ${controller.followCount.value.follows}'),
+                          SizedBox(width: 5.w),
+                          Container(
+                            width: 1.w,
+                            height: 12.h,
+                            color: Colors.black,
+                          ),
+                          SizedBox(width: 5.w),
+                          Text('${I18nContent.FANS.tr} ${controller.followCount.value.beans}'),
+                        ],
+                      )
+                    ],
+                  )
                       : InkWell(
-                          onTap: () {
-                            Get.toNamed(Routes.LOGIN);
-                          },
-                          child: Text(
-                              '${I18nContent.SIGNIN.tr}/${I18nContent.SIGNUP.tr} >'),
-                        ),
+                    onTap: () {
+                      Get.toNamed(Routes.LOGIN);
+                    },
+                    child: Text(
+                        '${I18nContent.SIGNIN.tr}/${I18nContent.SIGNUP.tr} >'),
+                  ),
                   const Spacer(), // 标题与按钮之间的间距
                   InkWell(
                     child: Column(

@@ -125,7 +125,7 @@ class ReleaseView extends GetView<ReleaseIdleController> {
                             IconButton(
                               iconSize: 80.w,
                               onPressed: () {
-                                controller.selectMultiImage();
+                                // controller.selectMultiImage();
                               },
                               icon: const Icon(
                                 Icons.image,

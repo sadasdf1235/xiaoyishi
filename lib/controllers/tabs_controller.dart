@@ -45,4 +45,10 @@ class TabsController extends GetxController{
     currentIndex.value = index;
     update();
   }
+
+  @override
+  void onClose() {
+    pageController.dispose();
+    super.onClose();
+  }
 }

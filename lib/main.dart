@@ -3,12 +3,16 @@ import 'dart:ui' as ui;
 
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:xiaoyishi/utils/https_client.dart';
 
+import 'controllers/tabs_controller.dart';
 import 'routes/app_pages.dart';
 import 'language/messages.dart';
 import 'bindings/common_binding.dart';
 
 void main() {
+  // 初始化网络请求
+  setupHttpClient();
   runApp(const MyApp());
 }
 

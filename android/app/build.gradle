@@ -47,7 +47,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion flutter.minSdkVersion
-//        minSdkVersion 21
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -68,6 +68,20 @@ android {
 //        }
 //    }
 
+    applicationVariants.all{ variant ->
+        /*
+        ${project.name}:当前Module的名称
+${buildType.name}:当前的构建类型，debug或者release或者是自定的flavor
+${defaultConfig.versionName} :版本名称，对于defaultConfig中的versionName,类比的我们也可以使用 ${defaultConfig.versionCode}来表示defaultConfig中的versionCode;
+${createTime}:自定义的打包时间，时间格式是：YYYYMMddHHmm。
+         */
+        variant.outputs.all{
+//            def createTime = new Date().format("YYYYMMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
+            def fileName = "xiaoyishi_${buildType.name}.apk"
+            outputFileName = fileName
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
@@ -87,6 +101,8 @@ flutter {
 }
 
 dependencies {
+    implementation fileTree(dir: "libs", include: ["*.aar"])
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation('com.amap.api:location:5.2.0')
     implementation('com.amap.api:3dmap:8.1.0')
     implementation 'com.amap.api:search:5.0.0'

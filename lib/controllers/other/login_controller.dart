@@ -1,10 +1,18 @@
 import 'dart:async';
-import 'package:dio/dio.dart';
 
 import 'package:get/get.dart';
 
-import '../../controllers/user_controller.dart';
-import '../../utils/https_client.dart';
+import 'package:xiaoyishi/apis/user.dart';
+import 'package:xiaoyishi/constants/constants.dart';
+import 'package:xiaoyishi/controllers/user_controller.dart';
+import 'package:xiaoyishi/models/ApiResponse.dart';
+import 'package:xiaoyishi/models/user/UserLoginModel.dart';
+
+import '../../constants/I18n_content.dart';
+import '../../models/user/UserModel.dart';
+import '../../routes/app_routes.dart';
+import '../../utils/storage.dart';
+import '../tabs_controller.dart';
 
 enum LoginMode { oneKey, password, verificationCode }
 
@@ -12,19 +20,31 @@ class LoginController extends GetxController {
   UserController userController = Get.put(UserController());
 
   RxString phone = ''.obs;
+  RxString password = ''.obs;
+  RxString code = ''.obs;
   RxBool isAgree = false.obs;
+  // 默认验证码登录
   Rx<LoginMode> loginMode = LoginMode.verificationCode.obs;
   RxBool isShowPassword = false.obs;
+  // 验证码倒计时
   RxInt count = 60.obs;
   RxBool isShowCode = true.obs;
   late Timer _timer;
-  HttpsClient httpsClient = HttpsClient();
 
   void changePhone(value){
     phone.value = value.toString();
     update();
   }
+  void changePassword(value){
+    password.value = value.toString();
+    update();
+  }
+  void changeCode(value){
+    code.value = value.toString();
+    update();
+  }
 
+  // 验证码倒计时
   void countDown(){
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       isShowCode.value = false;
@@ -43,6 +63,7 @@ class LoginController extends GetxController {
     update();
   }
 
+  // 切换登录方式
   void changeLoginMode(value) {
     loginMode.value = value;
     // 切换登录方式，就默认不同意协议
@@ -56,10 +77,35 @@ class LoginController extends GetxController {
   }
 
   void getCode() async{
-      var res = await httpsClient.get(url: '/api/sms/sendCode',query: {
-        'phone' : phone.value
-      });
-      print('验证码$res');
+      // var res = await httpsClient.get(url: '/api/sms/sendCode',query: {
+      //   'phone' : phone.value
+      // });
+      // print('验证码$res');
+  }
+
+  void login() async {
+    try {
+      var res = await UserApi.login(phone: phone.value,password: password.value, code: code.value);
+      ApiResponse response = ApiResponse.fromJson(res.data);
+      if(response.code == 1){
+        UserLoginModel userLoginModel = UserLoginModel.fromJson(response.data);
+        Storage.setStringData(Constants.TOKEN, userLoginModel.token);
+        // Get.offAllNamed(Routes.TABS);
+        Get.back();
+
+        userController.changeId(userLoginModel.id);
+        userController.changeLoginStatus(true);
+        userController.getUserInfo(userLoginModel.id);
+
+        userController.getUserFollowCount(userLoginModel.id);
+
+        Get.snackbar(I18nContent.HINT.tr, response.msg ?? '登录成功');
+        return;
+      }
+      Get.snackbar(I18nContent.HINT.tr, response.msg ?? '登录失败');
+    } catch (e) {
+      print('登录失败$e');
+    }
   }
 
   @override

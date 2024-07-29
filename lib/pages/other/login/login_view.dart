@@ -108,7 +108,7 @@ class LoginView extends GetView<LoginController> {
                   ),
                   onChanged: (value) {
                     controller.changePhone(value);
-                  }.throttleValue(),
+                  },
                 ),
               ),
               SizedBox(
@@ -123,22 +123,24 @@ class LoginView extends GetView<LoginController> {
                         color: Colors.white,
                       ),
                       child: TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.lock_outline),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              controller.changePasswordShow();
-                            },
-                            icon: controller.isShowPassword.value
-                                ? const Icon(Icons.visibility)
-                                : const Icon(Icons.visibility_off),
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.lock_outline),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                controller.changePasswordShow();
+                              },
+                              icon: controller.isShowPassword.value
+                                  ? const Icon(Icons.visibility)
+                                  : const Icon(Icons.visibility_off),
+                            ),
+                            hintText: I18nContent.INPUTPASSWORD.tr,
+                            border: InputBorder.none,
+                            counterText: '',
                           ),
-                          hintText: I18nContent.INPUTPASSWORD.tr,
-                          border: InputBorder.none,
-                          counterText: '',
-                        ),
-                      ),
+                          onChanged: (value) {
+                            controller.changePassword(value);
+                          }),
                     )
                   : Container(
                       decoration: BoxDecoration(
@@ -147,6 +149,7 @@ class LoginView extends GetView<LoginController> {
                         color: Colors.white,
                       ),
                       child: TextField(
+                        keyboardType: TextInputType.number,
                         obscureText: true,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.verified_user),
@@ -167,6 +170,9 @@ class LoginView extends GetView<LoginController> {
                           border: InputBorder.none,
                           counterText: '',
                         ),
+                        onChanged: (value) {
+                          controller.changeCode(value);
+                        },
                       ),
                     ),
               showPas
@@ -241,12 +247,14 @@ class LoginView extends GetView<LoginController> {
               // 登录
               ElevatedButton(
                 onPressed: () {
-                  if(controller.isAgree.value){
-                    // Get.offNamed(Routes.USER);
-                    Get.back();
-                    controller.userController.changeLoginStatus(true);
-                  }else{
-                    Get.snackbar(I18nContent.HINT.tr, I18nContent.AGREEPRO.tr,backgroundColor: Colors.white,);
+                  if (controller.isAgree.value) {
+                    controller.login();
+                  } else {
+                    Get.snackbar(
+                      I18nContent.HINT.tr,
+                      I18nContent.AGREEPRO.tr,
+                      backgroundColor: Colors.white,
+                    );
                   }
                 },
                 child: Text(I18nContent.SIGNUP.tr),

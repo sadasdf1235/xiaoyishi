@@ -1,48 +1,44 @@
-import 'dart:ffi';
-
+import 'dart:io';
 import 'package:dio/dio.dart';
-
+import 'package:xiaoyishi/utils/storage.dart';
 import '../constants/constants.dart';
 
 class HttpsClient {
-  static Dio dio = Dio();
-  HttpsClient({String baseUrl = Constants.BASE_URL}) {
+  static final Dio dio = Dio();
+
+  static void setup({String baseUrl = Constants.BASE_URL}) {
     dio.options.baseUrl = baseUrl;
     dio.options.connectTimeout = const Duration(seconds: 5);
     dio.options.receiveTimeout = const Duration(seconds: 5);
-    dio.options.headers =  {
-      'Authorization' : 'Bearer ' + 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlMDNiZmI3NDZjMzM0NWMxOGE3NmU3Njc5MWMyMThjZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTcxMzg2MzU0MywiZXhwIjoxNzE1MDczMTQzfQ.EuURV8-FZi_uxDOk_xf7-r__xUkVSTn7LFaubMPCpAY',
-    };
+    dio.interceptors.add(
+        InterceptorsWrapper(
+            onRequest: (options, handler) async {
+              print('baseUrl---${options.baseUrl}');
+              String? token = await Storage.getStringData(Constants.TOKEN);
+              if (token != null && token.isNotEmpty) {
+                options.headers['Authorization'] = token;
+              }
+              return handler.next(options);
+            },
+            onError: (DioError err, handler) {
+              // 错误处理逻辑
+              print('err---${err}');
+              return handler.next(err);
+            }
+        )
+    );
   }
 
-  // Map<String, dynamic>? query
-  Future get({required String url,Map<String, dynamic> query = const {}}) async {
-    try {
-      return await dio.get(url, queryParameters: query);
-    } catch (e) {
-      print(e);
-    }
+  static Future<Response> get({required String url, Map<String, dynamic> query = const {}}) async {
+    return await dio.get(url, queryParameters: query);
   }
 
-  // post
-  Future post({required String url, required Map<String, dynamic> data}) async {
-    try {
-      return await dio.post(url, data: data);
-    } catch (e) {
-      print(e);
-    }
+  static Future<Response> post({required String url, required Map<String, dynamic> data}) async {
+    return await dio.post(url, data: data);
   }
+}
 
-  // upload
-  Future uploadFiles({required String url,required List files}) async {
-    Future<FormData> createFormData() async {
-      return FormData.fromMap({
-        'name': 'dio',
-        'date': DateTime.now().toIso8601String(),
-        'files': files.map((e) async => await MultipartFile.fromFile(e)).toList()
-      });
-    }
-
-    return await dio.post(url, data: await createFormData());
-  }
+// 在应用启动时调用设置方法
+void setupHttpClient() {
+  HttpsClient.setup();
 }

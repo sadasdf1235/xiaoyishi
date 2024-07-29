@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="校易市"
+        android:label="@strings/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:networkSecurityConfig="@xml/network_security_config">
@@ -25,33 +25,90 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+<!--        //号码认证界面   android:theme="@style/NumberAuthTheme"-->
+        <activity android:name="com.alicom.fusion.auth.numberauth.FusionNumberAuthActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+<!--                //action值固定不能修改-->
+                <action android:name="fusion_action_auth"/>
+                <category android:name="fusion_category_auth"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+<!--        //短信界面-->
+        <activity
+            android:name="com.alicom.fusion.auth.smsauth.FusionSmsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+<!--                //action值固定不能修改-->
+                <action android:name="fusion_action_sms"/>
+                <category android:name="fusion_category_sms"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+<!--        //上行短信界面-->
+        <activity
+            android:name="com.alicom.fusion.auth.upsms.AlicomFusionUpSmsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+<!--                //action值固定不能修改-->
+                <action android:name="fusion_action_ups"/>
+                <category android:name="fusion_category_ups"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+<!--        //号码认证授权页界面-->
+        <activity
+            android:name="com.mobile.auth.gatewayauth.LoginAuthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="behind"
+            android:theme="@style/authsdk_activity_dialog"/>
+<!--        //号码认证二次弹窗授权界面-->
+        <activity
+            android:name="com.mobile.auth.gatewayauth.PrivacyDialogActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="behind"
+            android:theme="@style/authsdk_activity_dialog"/>
+<!--        //图形验证界面-->
+        <activity
+            android:name="com.alicom.fusion.auth.graphauth.FusionGraphAuthActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+<!--        //号码认证协议及登录注册场景协议界面用户可自定义-->
+        <activity
+            android:name="com.alicom.fusion.demo.CustomWebViewActivity"
+            android:exported="true"
+            android:configChanges="orientation|keyboardHidden|screenSize|uiMode|fontScale"
+            android:screenOrientation="sensorPortrait">
+            <intent-filter>
+<!--                //action为固定值不能修改-->
+                <action android:name="com.fusion.auth"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
         <!--联通电信授权页-->
         <!--如果不需要使用窗口模式，不要使用authsdk_activity_dialog主题，会出现异常动画-->
         <!--如果需要使用authsdk_activity_dialog主题，则screenOrientation一定不能指定明确的方向，
             比如portrait、sensorPortrait，在8.0的系统上不允许窗口模式指定orientation，会发生Crash，需要指定为behind，
             然后在授权页的前一个页面指定具体的orientation-->
         <!--  使用弹窗模式必须添加。-->
-<!--        <activity-->
-<!--            android:name="com.mobile.auth.gatewayauth.LoginAuthActivity"-->
-<!--            android:configChanges="orientation|keyboardHidden|screenSize"-->
-<!--            android:exported="false"-->
-<!--            android:launchMode="singleTop"-->
-<!--            android:theme="@style/authsdk_activity_dialog" />-->
-<!--        &lt;!&ndash;二次弹窗界面&ndash;&gt;-->
-<!--        <activity-->
-<!--            android:name="com.mobile.auth.gatewayauth.PrivacyDialogActivity"-->
-<!--            android:configChanges="orientation|keyboardHidden|screenSize"-->
-<!--            android:exported="false"-->
-<!--            android:launchMode="singleTop"-->
-<!--            android:screenOrientation="behind"-->
-<!--            android:theme="@style/authsdk_activity_dialog" />-->
-<!--        &lt;!&ndash;协议页面webview&ndash;&gt;-->
-<!--        <activity-->
-<!--            android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"-->
-<!--            android:configChanges="orientation|keyboardHidden|screenSize"-->
-<!--            android:exported="false"-->
-<!--            android:launchMode="singleTop"-->
-<!--            android:screenOrientation="behind" />-->
+        <!--协议页面webview-->
+        <activity
+            android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="behind" />
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
@@ -59,10 +116,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <!--  百度地图      -->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="Oxkxo8qflM2vJ79ALo9SrRbO4sgbC39y" />
 
         <!-- 高德地图      -->
         <meta-data
@@ -128,10 +181,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 本地信息缓存 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 开关Wi-Fi状态，解决中国机型移动网络权限问题需要 -->
 
-    // 写入文件权限
+<!--    // 写入文件权限-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    // 读取文件权限
+<!--    // 读取文件权限-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    // 相机权限
+<!--    // 相机权限-->
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 </manifest>

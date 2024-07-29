@@ -143,7 +143,7 @@ class MessageView extends GetView<MessageController> {
 
   @override
   Widget build(BuildContext context) {
-    UserController userController = Get.find<UserController>();
+    UserController userController = Get.put(UserController());
     return Obx(() => Scaffold(
           appBar: _appBar(context),
           body: GestureDetector(

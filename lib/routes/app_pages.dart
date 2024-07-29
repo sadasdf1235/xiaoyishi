@@ -1,6 +1,12 @@
 import 'package:get/get.dart';
 import 'package:xiaoyishi/pages/other/released/released_view.dart';
 
+import '../bindings/common_binding.dart';
+import '../controllers/discover_controller.dart';
+import '../controllers/home_controller.dart';
+import '../controllers/message_controller.dart';
+import '../controllers/tabs_controller.dart';
+import '../controllers/user_controller.dart';
 import '../pages/tabs/tabs_view.dart';
 import '../pages/home/home_view.dart';
 import '../pages/discover/discover_view.dart';
@@ -30,22 +36,47 @@ class AppPages {
     GetPage(
       name: Routes.TABS,
       page: () => const TabsView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut<TabsController>(() => TabsController());
+        },
+      ),
     ),
     GetPage(
       name: Routes.HOME,
       page: () => const HomeView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut<HomeController>(() => HomeController());
+        },
+      ),
     ),
     GetPage(
       name: Routes.DISCOVER,
       page: () => const DiscoverView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut<DiscoverController>(() => DiscoverController());
+        },
+      ),
     ),
     GetPage(
       name: Routes.MESSAGE,
       page: () => const MessageView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut<MessageController>(() => MessageController());
+        },
+      ),
     ),
     GetPage(
       name: Routes.USER,
       page: () => const UserView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut<UserController>(() => UserController());
+        },
+      ),
     ),
     GetPage(
       name: Routes.RELEASE,

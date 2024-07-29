@@ -32,15 +32,15 @@ class ReleaseIdleController extends GetxController {
     update();
   }
   // 上传多张图片
-  void selectMultiImage() async {
-    List<XFile>? images = await _imagePicker.pickMultiImage();
-    if (images != null){
-      List<String> imagePaths = images.map((image) => image.path).toList();
-      var res = await httpsClient.uploadFiles(url: '/api/oss/upload', files: imagePaths);
-      print('dasdas $res');
-    }
-    update();
-  }
+  // void selectMultiImage() async {
+  //   List<XFile>? images = await _imagePicker.pickMultiImage();
+  //   if (images != null){
+  //     List<String> imagePaths = images.map((image) => image.path).toList();
+  //     var res = await httpsClient.uploadFiles(url: '/api/oss/upload', files: imagePaths);
+  //     print('dasdas $res');
+  //   }
+  //   update();
+  // }
 
   @override
   void onInit() {
