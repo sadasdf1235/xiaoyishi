@@ -77,10 +77,7 @@ class LoginController extends GetxController {
   }
 
   void getCode() async{
-      // var res = await httpsClient.get(url: '/api/sms/sendCode',query: {
-      //   'phone' : phone.value
-      // });
-      // print('验证码$res');
+
   }
 
   void login() async {
@@ -89,17 +86,13 @@ class LoginController extends GetxController {
       ApiResponse response = ApiResponse.fromJson(res.data);
       if(response.code == 1){
         UserLoginModel userLoginModel = UserLoginModel.fromJson(response.data);
-        Storage.setStringData(Constants.TOKEN, userLoginModel.token);
-        // Get.offAllNamed(Routes.TABS);
+        await Storage.setStringData(Constants.TOKEN, userLoginModel.token);
         Get.back();
 
-        userController.changeId(userLoginModel.id);
-        userController.changeLoginStatus(true);
         userController.getUserInfo(userLoginModel.id);
 
-        userController.getUserFollowCount(userLoginModel.id);
-
         Get.snackbar(I18nContent.HINT.tr, response.msg ?? '登录成功');
+        update();
         return;
       }
       Get.snackbar(I18nContent.HINT.tr, response.msg ?? '登录失败');

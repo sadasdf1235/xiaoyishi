@@ -5,16 +5,17 @@ class UserModel {
   String email;
   int gender;
   String address;
-  String password;
   String currentLocation;
-  String avatarUrl;
+  String avatar;
   int status;
   int onlineStatus;
-  int? createUser;
-  int? updateUser;
   String createTime;
   String updateTime;
-  int isDeleted;
+  int follows;
+  int beans;
+  int collects;
+  int histories;
+  int posts;
 
   UserModel({
     required this.userId,
@@ -23,16 +24,17 @@ class UserModel {
     required this.email,
     required this.gender,
     required this.address,
-    required this.password,
     required this.currentLocation,
-    required this.avatarUrl,
+    required this.avatar,
     required this.status,
     required this.onlineStatus,
-    this.createUser,
-    this.updateUser,
     required this.createTime,
     required this.updateTime,
-    required this.isDeleted,
+    required this.follows,
+    required this.beans,
+    required this.collects,
+    required this.histories,
+    required this.posts,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -43,22 +45,18 @@ class UserModel {
       email: json['email'],
       gender: json['gender'],
       address: json['address'],
-      password: json['password'],
       currentLocation: json['currentLocation'],
-      avatarUrl: json['avatarUrl'],
+      avatar: json['avatar'],
       status: json['status'],
       onlineStatus: json['onlineStatus'],
-      createUser: json['createUser'],
-      updateUser: json['updateUser'],
       createTime: json['createTime'],
       updateTime: json['updateTime'],
-      isDeleted: json['isDeleted'],
+      follows: json['follows'],
+      beans: json['beans'],
+      collects: json['collects'],
+      histories: json['histories'],
+      posts: json['posts'],
     );
-  }
-
-  @override
-  String toString() {
-    return 'UserModel{userId: $userId, username: $username, phone: $phone, email: $email, gender: $gender, address: $address, password: $password, currentLocation: $currentLocation, avatarUrl: $avatarUrl, status: $status, onlineStatus: $onlineStatus, createUser: $createUser, updateUser: $updateUser, createTime: $createTime, updateTime: $updateTime, isDeleted: $isDeleted}';
   }
 
   Map<String, dynamic> toJson() {
@@ -69,16 +67,17 @@ class UserModel {
       'email': email,
       'gender': gender,
       'address': address,
-      'password': password,
       'currentLocation': currentLocation,
-      'avatarUrl': avatarUrl,
+      'avatar': avatar,
       'status': status,
       'onlineStatus': onlineStatus,
-      'createUser': createUser,
-      'updateUser': updateUser,
       'createTime': createTime,
       'updateTime': updateTime,
-      'isDeleted': isDeleted,
+      'follows': follows,
+      'beans': beans,
+      'collects': collects,
+      'histories': histories,
+      'posts': posts,
     };
   }
 }

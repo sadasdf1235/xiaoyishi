@@ -1,3 +1,4 @@
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ class DiscoverView extends GetView<DiscoverController> {
   const DiscoverView({super.key});
 
   Widget _card(String avatar, String userName, int fansNum, String title,
-      String textPart, List images) {
+      String textPart, List images, int likes) {
     return Padding(
       padding: EdgeInsets.all(10.w),
       child: Card(
@@ -146,7 +147,7 @@ class DiscoverView extends GetView<DiscoverController> {
                             color: Colors.black38,
                           ),
                           label: Text(
-                            I18nContent.LIKE.tr,
+                          '${I18nContent.LIKE.tr} ${likes > 0 ? likes : '' }',
                             style: const TextStyle(
                               color: Colors.black38,
                             ),
@@ -166,42 +167,55 @@ class DiscoverView extends GetView<DiscoverController> {
     return PreferredSize(
         preferredSize: Size.fromHeight(40.h),
         child: AppBar(
-              title: Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.alphabetic,
-                children: [
-                  Text(
-                    I18nContent.ATTENTION.tr,
-                    style: TextStyle(fontSize: 18.sp),
-                  ),
-                  SizedBox(width: 8.w),
-                  Text(
-                    I18nContent.FORUM.tr,
-                    style: TextStyle(fontSize: 25.sp),
-                  ),
-                ],
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              Text(
+                I18nContent.ATTENTION.tr,
+                style: TextStyle(fontSize: 18.sp),
               ),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(I18nContent.RELEASE.tr),
-                ),
-              ],
-            ));
+              SizedBox(width: 8.w),
+              Text(
+                I18nContent.FORUM.tr,
+                style: TextStyle(fontSize: 25.sp),
+              ),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {},
+              child: Text(I18nContent.RELEASE.tr),
+            ),
+          ],
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      body: ListView.builder(
-        itemCount: controller.postList.length,
-        itemBuilder: (context, index) {
-          var e = controller.postList[index];
-          return _card(e['avatar'], e['userName'], int.parse(e['fansNum']),
-              e['title'], e['textPart'], e['images']);
+      body: Obx(() => EasyRefresh(
+        onRefresh: () async {
+          // 下拉刷新逻辑
+          // ...
+          controller.getPostList();
         },
-      ),
+        onLoad: () async {
+          // 上拉加载逻辑
+          // ...
+
+        },
+        child: ListView.builder(
+              itemCount: controller.postList.value.length,
+              itemBuilder: (context, index) {
+                var e = controller.postList.value[index];
+                // TODO
+                return _card(
+                    e.avatar, e.userName, e.fans, e.title, e.description, e.images, e.likes);
+              },
+            ),
+      )),
     );
   }
 }

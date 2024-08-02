@@ -1,24 +1,19 @@
-import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:xiaoyishi/apis/follow.dart';
-import 'package:xiaoyishi/models/follow/FollowCountModel.dart';
 
+import '../constants/constants.dart';
+import '../utils/storage.dart';
 import '../apis/user.dart';
 import '../constants/I18n_content.dart';
-import '../constants/constants.dart';
 import '../models/ApiResponse.dart';
 import '../models/user/UserModel.dart';
-import '../utils/storage.dart';
 import '../widgets/ld_icon.dart';
 import '../../routes/app_routes.dart';
 import '../../constants/release_way.dart';
-import '../models/user/UserModel.dart';
 
 class UserController extends GetxController{
   String defaultAvatar = 'assets/images/avatar.png';
   String defaultRelease = 'assets/images/user_bk.png';
-  List<Map<String,dynamic>> recordItemList = [
+  RxList<Map<String,dynamic>> recordItemList = [
     {
       'topText' : '0',
       'bottomText' : I18nContent.COLLECT.tr,
@@ -49,16 +44,20 @@ class UserController extends GetxController{
       'bottomText' : I18nContent.PURCHASED.tr,
       'routerName' : Routes.PURCHASED,
     },
-  ];
+  ].obs;
   RxBool isLogin =  false.obs;
-  RxInt id = 0.obs;
   Rxn<UserModel> userInfo = Rxn<UserModel>();
-  Rx<FollowCountModel> followCount = Rx<FollowCountModel>(FollowCountModel(follows: 0, beans: 0));
 
   @override
-  void onInit() {
+  void onInit() async{
     // TODO: implement onInit
     super.onInit();
+    String token = await Storage.getStringData(Constants.TOKEN);
+    Map<String,dynamic> userInfo = await Storage.getMapData(Constants.USER_INFO);
+    if(token.isNotEmpty && userInfo.isNotEmpty){
+      changeLoginStatus(true);
+      changeUserInfo(UserModel.fromJson(userInfo));
+    }
   }
 
   // 去发布页
@@ -71,18 +70,15 @@ class UserController extends GetxController{
       'way' : ReleaseWay.idle
     });
   }
+
   void changeLoginStatus(status){
     isLogin.value = status;
     update();
   }
 
-  void changeId(value){
-    id.value = value;
-    update();
-  }
-
-  void changeUserInfo(value){
+  void changeUserInfo(UserModel value){
     userInfo.value = value;
+    Storage.setMapData(Constants.USER_INFO, value.toJson());
     update();
   }
 
@@ -92,25 +88,18 @@ class UserController extends GetxController{
       ApiResponse response = ApiResponse.fromJson(res.data);
       if(response.code == 1){
         UserModel userModel = UserModel.fromJson(response.data);
+
+        recordItemList.value[0]['topText'] = userModel.collects.toString();
+        recordItemList.value[1]['topText'] = userModel.histories.toString();
+        recordItemList.value[2]['topText'] = userModel.posts.toString();
+
         changeUserInfo(userModel);
-        print('用户信息----${userModel}');
+        changeLoginStatus(true);
         Get.snackbar(I18nContent.HINT.tr, response.msg ?? '获取用户信息成功');
       }
-      Get.snackbar(I18nContent.HINT.tr, response.msg ?? '获取用户信息失败');
     } catch (e) {
       print('获取用户信息失败$e');
-    }
-  }
-
-  void getUserFollowCount(int id) async {
-    try {
-      var res = await FollowApi.getFollowCount(userId: id);
-      ApiResponse response = ApiResponse.fromJson(res.data);
-      if(response.code == 1){
-        followCount.value = FollowCountModel.fromJson(response.data);
-      }
-    }catch(e) {
-      print('获取用户关注数失败');
+      Get.snackbar(I18nContent.HINT.tr, '获取用户信息失败');
     }
   }
 }

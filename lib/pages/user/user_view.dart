@@ -1,3 +1,4 @@
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -60,7 +61,7 @@ class UserView extends GetView<UserController> {
                           controller.userInfo.value == null
                           ? AssetImage(controller.defaultAvatar)
                           : NetworkImage(
-                          controller.userInfo.value!.avatarUrl)
+                          controller.userInfo.value!.avatar)
                       as ImageProvider<Object>,
                     ),
                   ),
@@ -85,7 +86,7 @@ class UserView extends GetView<UserController> {
                       // 粉丝 关注
                       Row(
                         children: [
-                          Text('${I18nContent.ATTENTION.tr} ${controller.followCount.value.follows}'),
+                          Text('${I18nContent.ATTENTION.tr} ${controller.userInfo.value?.follows ?? 0 }'),
                           SizedBox(width: 5.w),
                           Container(
                             width: 1.w,
@@ -93,7 +94,7 @@ class UserView extends GetView<UserController> {
                             color: Colors.black,
                           ),
                           SizedBox(width: 5.w),
-                          Text('${I18nContent.FANS.tr} ${controller.followCount.value.beans}'),
+                          Text('${I18nContent.FANS.tr} ${controller.userInfo.value?.beans ?? 0 }'),
                         ],
                       )
                     ],
@@ -173,22 +174,25 @@ class UserView extends GetView<UserController> {
 
   Widget _userRecord() {
     return Card(
-      child: GridView.count(
-        crossAxisCount: 3,
-        mainAxisSpacing: 5.h,
-        crossAxisSpacing: 5.w,
-        childAspectRatio: 2,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        children: controller.recordItemList.map((e) {
-          Widget child = e['iconData'] == null
-              ? Text('${e['topText']}')
-              : Icon(e['iconData']);
-          return _recordItem(
-              topChild: child,
-              bottomText: e['bottomText'],
-              routerName: e['routerName']);
-        }).toList(),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10.h),
+        child: GridView.count(
+          crossAxisCount: 3,
+          mainAxisSpacing: 5.h,
+          crossAxisSpacing: 5.w,
+          childAspectRatio: 2,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: controller.recordItemList.map((e) {
+            Widget child = e['iconData'] == null
+                ? Text('${e['topText']}')
+                : Icon(e['iconData']);
+            return _recordItem(
+                topChild: child,
+                bottomText: e['bottomText'],
+                routerName: e['routerName']);
+          }).toList(),
+        ),
       ),
     );
   }
@@ -197,19 +201,31 @@ class UserView extends GetView<UserController> {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: _appBar(),
-          body: Container(
-            // vertical: 21.h
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.w,
-            ),
-            child: Column(
-              children: [
-                _releaseIdle(),
-                SizedBox(
-                  height: 5.h,
-                ),
-                _userRecord(),
-              ],
+          body: EasyRefresh(
+            onRefresh: () async {
+              // 下拉刷新逻辑
+              // ...
+              controller.getUserInfo(controller.userInfo.value?.userId ?? 0);
+            },
+            onLoad: () async {
+              // 上拉加载逻辑
+              // ...
+
+            },
+            child: Container(
+              // vertical: 21.h
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+              ),
+              child: Column(
+                children: [
+                  _releaseIdle(),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  _userRecord(),
+                ],
+              ),
             ),
           ),
         ));

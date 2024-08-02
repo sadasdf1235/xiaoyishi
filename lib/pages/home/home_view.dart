@@ -1,3 +1,4 @@
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -217,7 +218,7 @@ class HomeView extends GetView<HomeController> {
                 child: Row(
                   children: [
                     SizedBox(width: 25.w),
-                    Icon(
+                    const Icon(
                       Icons.search,
                       color: CommonColors.unimportanceColor,
                     ),
@@ -330,10 +331,10 @@ class HomeView extends GetView<HomeController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.network(
+        images.isNotEmpty ? Image.network(
           images[0],
           fit: BoxFit.cover,
-        ),
+        ) : const Text(""),
         SizedBox(
           height: 10.h,
         ),
@@ -407,20 +408,20 @@ class HomeView extends GetView<HomeController> {
         return InkWell(
           onTap: () {
             Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {
-              'images': e['image'],
-              'title': e['title'],
-              'price': double.parse(e['price']),
-              'userName': e['userName'],
-              'avatar': e['avatar'],
-              'describe': e['describe'],
+              'images': e.images,
+              'title': e.title,
+              'price': e.price,
+              'userName': e.userName,
+              'avatar': e.avatar,
+              'describe': e.description,
             });
           },
           child: _commodity(
-              images: e['image'],
-              title: e['title'],
-              price: double.parse(e['price']),
-              userName: e['userName'],
-              avatar: e['avatar']),
+              images: e.images,
+              title: e.title,
+              price: e.price,
+              userName: e.userName,
+              avatar: e.avatar),
         );
       },
     );
@@ -430,21 +431,33 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: _appBar(),
-      body: Obx(() => ListView(
-            controller: controller.scrollController,
-            children: [
-              _top(),
-              SizedBox(
-                height: 33.h,
-              ),
-              //  分类
-              _category(),
-              // 猜你喜欢
-              _favorite(),
-              // 商品列表
-              _productList(),
-            ],
-          )),
+      body: Obx(() => EasyRefresh(
+          onRefresh: () async {
+            // 下拉刷新逻辑
+            // ...
+            controller.getCommodities();
+          },
+          onLoad: () async {
+            // 上拉加载逻辑
+            // ...
+
+          },
+        child: ListView(
+              controller: controller.scrollController,
+              children: [
+                _top(),
+                SizedBox(
+                  height: 33.h,
+                ),
+                //  分类
+                _category(),
+                // 猜你喜欢
+                _favorite(),
+                // 商品列表
+                _productList(),
+              ],
+            ),
+      )),
     );
   }
 }
