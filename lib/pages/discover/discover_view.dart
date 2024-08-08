@@ -211,8 +211,19 @@ class DiscoverView extends GetView<DiscoverController> {
               itemBuilder: (context, index) {
                 var e = controller.postList.value[index];
                 // TODO
-                return _card(
-                    e.avatar, e.userName, e.fans, e.title, e.description, e.images, e.likes);
+                return InkWell(
+                  onTap: () {
+                    Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {
+                      'images': e.images,
+                      'title': e.title,
+                      'userName': e.userName,
+                      'avatar': e.avatar,
+                      'describe': e.description,
+                    });
+                  },
+                  child: _card(
+                      e.avatar, e.userName, e.fans, e.title, e.description, e.images, e.likes),
+                );
               },
             ),
       )),

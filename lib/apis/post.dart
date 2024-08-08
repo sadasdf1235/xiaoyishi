@@ -7,7 +7,7 @@ class PostApi {
 
   static Future<Response> getPostList() async {
     try {
-      return await HttpsClient.get(url: '${base}/postList');
+      return await HttpsClient.get(url: '$base/postList');
     } catch (e) {
       print('获取帖子列表失败$e');
       rethrow;

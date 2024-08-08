@@ -225,7 +225,7 @@ class HomeView extends GetView<HomeController> {
                     SizedBox(width: 20.w),
                     Text(
                       I18nContent.SEARCHFAVORITES.tr,
-                      style: TextStyle(color: CommonColors.unimportanceColor),
+                      style: const TextStyle(color: CommonColors.unimportanceColor),
                     ),
                   ],
                 ),
@@ -282,13 +282,18 @@ class HomeView extends GetView<HomeController> {
           children: List.generate(8, (index) {
             var e = controller.categoryList[index];
             if (index == 7) {
-              return _categoryItem(
-                  icon: Icon(
-                    Icons.view_cozy,
-                    size: 46.w,
-                    color: CommonColors.themeColor,
-                  ),
-                  title: I18nContent.ALL.tr);
+              return InkWell(
+                onTap: (){
+                  Get.toNamed(Routes.CATEGORY);
+                },
+                child: _categoryItem(
+                    icon: Icon(
+                      Icons.view_cozy,
+                      size: 46.w,
+                      color: CommonColors.themeColor,
+                    ),
+                    title: I18nContent.ALL.tr),
+              );
             }
             return _categoryItem(
                 icon: const Icon(Icons.add),

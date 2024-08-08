@@ -7,7 +7,7 @@ class UserApi {
 
   static Future<Response> getUserInfo({required int userId}) async {
     try {
-      return await HttpsClient.get(url: '${base}/userinfo', query: {'userId': userId});
+      return await HttpsClient.get(url: '$base/userinfo', query: {'userId': userId});
     } catch (e) {
       // 处理错误，例如打印日志或抛出异常
       print('Error getting user info: $e');
@@ -19,7 +19,7 @@ class UserApi {
       {required String phone, String password = "", String code = ""}) async {
     try {
       return await HttpsClient.post(
-          url: '${base}/login',
+          url: '$base/login',
           data: {'phone': phone, 'password': password, 'code': code});
     } catch (e) {
       print('Error logging in: $e');
@@ -31,7 +31,7 @@ class UserApi {
       {required String username, String password = '', required String phone, required int gender}) async {
     try {
       return await HttpsClient.post(
-          url: '${base}/register',
+          url: '$base/register',
           data: {'username': username, 'password': password, 'phone': phone, 'gender': gender});
     } catch (e) {
       print('Error registering: $e');

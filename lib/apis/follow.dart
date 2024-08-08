@@ -7,7 +7,7 @@ class FollowApi {
 
   static Future<Response> getFollowList({required int userId}) async {
     try {
-      return await HttpsClient.get(url: '${base}/followList',query: {
+      return await HttpsClient.get(url: '$base/followList',query: {
         'userId' : userId
       });
     } catch (e) {

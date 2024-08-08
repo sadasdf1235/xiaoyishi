@@ -20,4 +20,5 @@ class Routes {
   static const PURCHASED = '/purchased';
   static const PRODUCT_DETAIL = '/product_detail';
   static const CHAT = '/chat';
+  static const CATEGORY = '/category';
 }

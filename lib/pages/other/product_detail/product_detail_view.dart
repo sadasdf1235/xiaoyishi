@@ -58,13 +58,14 @@ class ProductDetailView extends GetView {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Get.arguments['price'] != null ?
                     Text(
                       '${I18nContent.UNIT.tr} ${isUs ? (Get.arguments['price'] / 7.24).toStringAsFixed(2) : Get.arguments['price']}',
                       style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
                           fontSize: 26.sp),
-                    ),
+                    ) : const Text(""),
                     Text(
                       Get.arguments['title'],
                       style: TextStyle(

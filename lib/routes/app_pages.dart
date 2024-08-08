@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:xiaoyishi/pages/other/category/category_view.dart';
 import 'package:xiaoyishi/pages/other/released/released_view.dart';
 
 import '../bindings/common_binding.dart';
@@ -121,6 +122,10 @@ class AppPages {
     GetPage(
       name: Routes.CHAT,
       page: () => const ChatView(),
+    ),
+    GetPage(
+      name: Routes.CATEGORY,
+      page: () => const CategoryView(),
     ),
   ];
 }
