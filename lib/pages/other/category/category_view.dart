@@ -22,7 +22,9 @@ class CategoryView extends GetView<CategoryController> {
   PreferredSizeWidget _appBar() {
     return AppBar(
       title: InkWell(
-        onTap: () => Get.toNamed(Routes.SEARCH),
+        onTap: () => Get.toNamed(Routes.SEARCH,arguments: {
+          'come': 'category'
+        }),
         child: Container(
           width: 318.w,
           height: 52.h,

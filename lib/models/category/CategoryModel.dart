@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class CategoryModel {
   final int id;
   final int? parentId; // 使用可空类型来允许parentId为null

@@ -49,6 +49,7 @@ class I18nContent {
   static const String INPUTPASSWORD = 'Please enter a password of 6 to 12 characters';
   static const String INPUTCODE = 'Please enter the verification code you received';
   static const String AGREEPRO = 'Please agree to the agreement first';
+  static const String INPUTTITLE = 'Please enter baby name';
 
   ///  按钮
   static const String CONFIRM = 'Confirm';

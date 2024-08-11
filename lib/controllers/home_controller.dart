@@ -122,7 +122,7 @@ class HomeController extends GetxController {
       var res = await CommodityApi.getCommodities();
       ApiResponse response = ApiResponse.fromJson(res.data);
       if(response.code == 1){
-        productList.value.addAll(CommodityModel.fromJsonList(response.data));
+        productList.addAll(CommodityModel.fromJsonList(response.data));
         update();
       }
     } catch (e) {

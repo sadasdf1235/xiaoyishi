@@ -402,14 +402,14 @@ class HomeView extends GetView<HomeController> {
   Widget _productList() {
     return MasonryGridView.count(
       padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
-      itemCount: controller.productList.length,
+      itemCount: controller.productList.value.length,
       crossAxisCount: 2,
       mainAxisSpacing: 16.w,
       crossAxisSpacing: 10.h,
       shrinkWrap: true, // 添加这一行以确保网格视图的高度能够根据内容自适应
       physics: const NeverScrollableScrollPhysics(), // 禁用滚动，因为它将放在一个滚动的列表视图中
       itemBuilder: (context, index) {
-        var e = controller.productList[index];
+        var e = controller.productList.value[index];
         return InkWell(
           onTap: () {
             Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {
@@ -435,7 +435,6 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: _appBar(),
       body: Obx(() => EasyRefresh(
           onRefresh: () async {
             // 下拉刷新逻辑

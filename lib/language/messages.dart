@@ -43,6 +43,7 @@ class Messages extends Translations {
       I18nContent.INPUTPASSWORD : '请输入6~12位密码',
       I18nContent.INPUTCODE : '请输入您收到的验证码',
       I18nContent.AGREEPRO : '请您先同意协议',
+      I18nContent.INPUTTITLE : '请输入宝贝名称',
 
       /// 按钮
       I18nContent.CONFIRM : '确定',
@@ -217,6 +218,7 @@ class Messages extends Translations {
       I18nContent.INPUTPASSWORD : I18nContent.INPUTPASSWORD,
       I18nContent.INPUTCODE : I18nContent.INPUTCODE,
       I18nContent.AGREEPRO : I18nContent.AGREEPRO,
+      I18nContent.INPUTTITLE : I18nContent.INPUTTITLE,
 
       /// 文字
       I18nContent.TAGLINE : I18nContent.TAGLINE,
