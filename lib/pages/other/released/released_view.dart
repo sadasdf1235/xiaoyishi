@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../../controllers/other/released_controller.dart';
 import '../../../constants/I18n_content.dart';
-import '../../../widgets/order_item.dart';
-import '../../../constants/common_colors.dart';
 import '../../../widgets/empty_status.dart';
 
 class ReleasedView extends StatelessWidget {

@@ -92,7 +92,7 @@ class CategoryView extends GetView<CategoryController> {
                     ),
                     Center(
                       child: Text(
-                        controller.categoryList.value[index].name,
+                        controller.categoryList[index].name,
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: controller.selectIndex.value == index
@@ -110,7 +110,7 @@ class CategoryView extends GetView<CategoryController> {
   }
 
   Widget secondCategory() {
-    List<CategoryModel> e = controller.secCategoryList.value;
+    List<CategoryModel> e = controller.secCategoryList;
     return Expanded(
         child: Container(
       padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),

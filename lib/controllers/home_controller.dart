@@ -1,17 +1,12 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:xiaoyishi/constants/constants.dart';
 import 'package:xiaoyishi/models/commodity/CommodityModel.dart';
-import 'package:xiaoyishi/utils/storage.dart';
 
 import '../apis/commodity.dart';
 import '../models/ApiResponse.dart';
 import '../utils/amap_util.dart';
 import '../constants/I18n_content.dart';
-import '../constants/common_colors.dart';
 
 class HomeController extends GetxController {
   /// 滚动控制器

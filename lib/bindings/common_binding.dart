@@ -5,7 +5,6 @@ import '../../controllers/user_controller.dart';
 import '../../controllers/message_controller.dart';
 import '../../controllers/discover_controller.dart';
 import '../../controllers/home_controller.dart';
-import '../../controllers/other/release_idle_controller.dart';
 import '../../controllers/other/category_controller.dart';
 
 class CommonBinding extends Bindings {

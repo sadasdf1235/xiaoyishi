@@ -9,10 +9,7 @@ import 'package:xiaoyishi/models/ApiResponse.dart';
 import 'package:xiaoyishi/models/user/UserLoginModel.dart';
 
 import '../../constants/I18n_content.dart';
-import '../../models/user/UserModel.dart';
-import '../../routes/app_routes.dart';
 import '../../utils/storage.dart';
-import '../tabs_controller.dart';
 
 enum LoginMode { oneKey, password, verificationCode }
 

@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:xiaoyishi/pages/other/category/category_view.dart';
 import 'package:xiaoyishi/pages/other/released/released_view.dart';
 
-import '../bindings/common_binding.dart';
 import '../controllers/discover_controller.dart';
 import '../controllers/home_controller.dart';
 import '../controllers/message_controller.dart';
@@ -19,12 +18,10 @@ import '../pages/other/search/search_view.dart';
 import '../pages/other/collect/collect_view.dart';
 import '../pages/other/history/history_view.dart';
 import '../pages/other/post/post_view.dart';
-import '../pages/other/released/released_view.dart';
 import '../pages/other/sold/sold_view.dart';
 import '../pages/other/purchased/purchased_view.dart';
 import '../pages/other/product_detail/product_detail_view.dart';
 import '../pages/other/chat/chat_view.dart';
-// part 'app_routes.dart';
 import './app_routes.dart';
 
 class AppPages {

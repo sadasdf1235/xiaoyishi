@@ -19,7 +19,7 @@ class CategoryController extends GetxController {
 
   void changeSelectIndex(int index) {
     selectIndex.value = index;
-    getSecondCategory(categoryList.value[index].id);
+    getSecondCategory(categoryList[index].id);
     update();
   }
 

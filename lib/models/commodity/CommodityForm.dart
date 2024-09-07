@@ -1,4 +1,3 @@
-import '../category/CategoryModel.dart';
 class CommodityForm {
   String title;
   String description;

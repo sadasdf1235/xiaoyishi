@@ -105,40 +105,30 @@ class AmapUtil {
   void _setLocationOption() {
     AMapLocationOption locationOption = AMapLocationOption();
 
-    if(null != _locationPlugin) {
-      ///将定位参数设置给定位插件
-      _locationPlugin.setLocationOption(locationOption);
+    ///将定位参数设置给定位插件
+    _locationPlugin.setLocationOption(locationOption);
     }
-  }
 
   ///开始定位
   void _startLocation() {
-    if(null != _locationPlugin){
-      _setLocationOption();
-      _locationPlugin.startLocation();
+    _setLocationOption();
+    _locationPlugin.startLocation();
     }
-  }
 
   ///停止定位
   void _stopLocation() {
-    if(null != _locationPlugin){
-      _locationPlugin.stopLocation();
+    _locationPlugin.stopLocation();
     }
-  }
 
   /// 销毁定位
   void _destoryLocation(){
-    if(null != _locationPlugin){
-      _locationPlugin.destroy();
+    _locationPlugin.destroy();
     }
-  }
 
   void cancel() {
     if (null != _locationListener) {
       _locationListener?.cancel(); // 停止定位
     }
-    if(null != _locationPlugin){
-      _destoryLocation();
+    _destoryLocation();
     }
-  }
 }

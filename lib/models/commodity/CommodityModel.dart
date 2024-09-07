@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class CommodityModel {
   final int commodityId;
   final int userId;

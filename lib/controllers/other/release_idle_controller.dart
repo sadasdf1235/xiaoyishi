@@ -129,7 +129,7 @@ class ReleaseIdleController extends GetxController {
               location: location.value,
               categoryId: secCategory.value.id,
               userId: id,
-              images: imageList.value));
+              images: imageList));
       ApiResponse apiResponse = ApiResponse.fromJson(res.data);
       if (apiResponse.code == 1) {
         Get.back();

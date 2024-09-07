@@ -11,7 +11,7 @@ class ChatView extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    ChatController controller = Get.put(ChatController());
+    // ChatController controller = Get.put(ChatController());
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100.h),

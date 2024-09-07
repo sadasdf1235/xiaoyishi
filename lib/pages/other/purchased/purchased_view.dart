@@ -8,7 +8,6 @@ import '../../../constants/I18n_content.dart';
 import '../../../constants/common_colors.dart';
 import '../../../widgets/order_item.dart';
 import '../../../widgets/empty_status.dart';
-import '../../../controllers/user_controller.dart';
 
 class PurchasedView extends StatelessWidget {
   const PurchasedView({super.key});
@@ -16,7 +15,7 @@ class PurchasedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PurchasedController controller = Get.put(PurchasedController());
-    UserController userController = Get.find<UserController>();
+    // UserController userController = Get.find<UserController>();
     return DefaultTabController(
       length: controller.tabs.length,
       child: Scaffold(

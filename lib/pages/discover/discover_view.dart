@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../constants/I18n_content.dart';
 import '../../widgets/space_around.dart';
 import '../../controllers/discover_controller.dart';
-import '../../constants/release_way.dart';
 import '../../routes/app_routes.dart';
 
 class DiscoverView extends GetView<DiscoverController> {
@@ -207,9 +206,9 @@ class DiscoverView extends GetView<DiscoverController> {
 
         },
         child: ListView.builder(
-              itemCount: controller.postList.value.length,
+              itemCount: controller.postList.length,
               itemBuilder: (context, index) {
-                var e = controller.postList.value[index];
+                var e = controller.postList[index];
                 // TODO
                 return InkWell(
                   onTap: () {

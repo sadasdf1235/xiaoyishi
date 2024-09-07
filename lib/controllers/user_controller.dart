@@ -89,9 +89,9 @@ class UserController extends GetxController{
       if(response.code == 1){
         UserModel userModel = UserModel.fromJson(response.data);
 
-        recordItemList.value[0]['topText'] = userModel.collects.toString();
-        recordItemList.value[1]['topText'] = userModel.histories.toString();
-        recordItemList.value[2]['topText'] = userModel.posts.toString();
+        recordItemList[0]['topText'] = userModel.collects.toString();
+        recordItemList[1]['topText'] = userModel.histories.toString();
+        recordItemList[2]['topText'] = userModel.posts.toString();
 
         changeUserInfo(userModel);
         changeLoginStatus(true);

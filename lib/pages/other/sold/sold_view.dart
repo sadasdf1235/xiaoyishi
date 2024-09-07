@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../controllers/other/sold_controller.dart';
 import '../../../constants/I18n_content.dart';
-import '../../../widgets/space_around.dart';
 import '../../../widgets/order_item.dart';
 import '../../../widgets/empty_status.dart';
 

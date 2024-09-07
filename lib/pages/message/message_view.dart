@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/I18n_content.dart';
-import '../../constants/common_colors.dart';
-import '../../widgets/space_around.dart';
 import '../../widgets/ld_dialog.dart';
 import '../../controllers/message_controller.dart';
 import '../../routes/app_routes.dart';

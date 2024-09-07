@@ -8,8 +8,6 @@ import '../../../controllers/other/login_controller.dart';
 import '../../../widgets/ld_icon.dart';
 import '../../../constants/I18n_content.dart';
 import '../../../widgets/space_around.dart';
-import '../../../routes/app_routes.dart';
-import '../../../extension/throttle_extension.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
