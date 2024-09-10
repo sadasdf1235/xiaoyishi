@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:card_swiper/card_swiper.dart';
 
-import '../../../controllers/other/product_detail_controller.dart';
 import '../../../constants/I18n_content.dart';
 import '../../../routes/app_routes.dart';
 
@@ -14,7 +13,6 @@ class ProductDetailView extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    // ProductDetailController controller = Get.put(ProductDetailController());
     double swiperHeight = MediaQuery.of(context).size.height / 3;
     bool isUs = ui.window.locale.languageCode == 'en';
     return Scaffold(

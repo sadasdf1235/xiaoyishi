@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../controllers/other/chat_controller.dart';
 import '../../../constants/I18n_content.dart';
 
 class ChatView extends GetView {
@@ -11,7 +10,6 @@ class ChatView extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    // ChatController controller = Get.put(ChatController());
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100.h),
