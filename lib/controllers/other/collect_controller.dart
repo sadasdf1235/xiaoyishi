@@ -1,17 +1,18 @@
 import 'package:get/get.dart';
-import 'package:xiaoyishi/apis/collect.dart';
-import 'package:xiaoyishi/constants/constants.dart';
-import 'package:xiaoyishi/models/post/PostModel.dart';
-import 'package:xiaoyishi/utils/storage.dart';
 
+import '../../apis/collect.dart';
+import '../../constants/constants.dart';
+import '../../models/collect/CollectModel.dart';
+import '../../models/post/PostModel.dart';
 import '../../constants/I18n_content.dart';
 import '../../models/ApiResponse.dart';
 import '../../models/commodity/CommodityModel.dart';
+import '../../utils/storage.dart';
 
 class CollectController extends GetxController{
 
-  List tabs = [I18nContent.COWRY.tr,I18nContent.POST.tr];
-  RxList collectList = [].obs;
+  List tabs = [I18nContent.ALL.tr,I18nContent.COMMODITY.tr,I18nContent.POST.tr];
+  RxList<CollectModel> collectList = <CollectModel>[].obs;
   RxList<PostModel> postList = <PostModel>[].obs;
   RxList<CommodityModel> commodityList = <CommodityModel>[].obs;
 
@@ -37,15 +38,11 @@ class CollectController extends GetxController{
 
   void tabChange(value){
     collectList.clear();
-    if(value == 0){
-      getCollectList("commodity");
-    }else if(value == 1){
-      getCollectList("post");
-    }
+    getCollectList(value);
     update();
   }
 
-  void getCollectList(String type) async{
+  void getCollectList(int type) async{
     try {
       Map<String,dynamic> userInfo = await Storage.getMapData(Constants.USER_INFO);
       int id = userInfo['userId'];
@@ -53,13 +50,15 @@ class CollectController extends GetxController{
       ApiResponse response = ApiResponse.fromJson(res.data);
       if(response.code == 1){
         print('获取收藏列表成功${response.data}');
-        if(type == 'post'){
-          List<PostModel> list = PostModel.fromJsonList(response.data);
-          changePostList(list);
-        }else if(type == 'commodity'){
-          List<CommodityModel> list = CommodityModel.fromJsonList(response.data);
-          changeCommodityList(list);
-        }
+        // if(type == 2){
+        //   List<PostModel> list = PostModel.fromJsonList(response.data);
+        //   changePostList(list);
+        // }else if(type == 1){
+        //   List<CommodityModel> list = CommodityModel.fromJsonList(response.data);
+        //   changeCommodityList(list);
+        // }
+        List<CollectModel> list  = CollectModel.fromJsonList(response.data);
+        changeCollectList(list);
         return;
       }
       Get.snackbar(I18nContent.HINT.tr, response.msg ?? '获取收藏列表失败');

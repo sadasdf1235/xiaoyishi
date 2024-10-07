@@ -5,6 +5,7 @@ import '../utils/https_client.dart';
 class CategoryApi {
   static String base = '/user/category';
 
+  // 一级分类
   static Future<Response> getFirstCategory() async {
     try {
       return await HttpsClient.get(url: '$base/firstCategory');
@@ -15,6 +16,7 @@ class CategoryApi {
     }
   }
 
+  // 二级分类
   static Future<Response> getSecondCategory({required int id}) async {
     try {
       return await HttpsClient.get(url: '$base/secondCategory', query: {'id': id});

@@ -146,4 +146,6 @@ class I18nContent {
   static const String NOPOST = 'No Post';
   static const String NOHISTORY = 'No History';
   static const String NOCOLLECT = 'No Collect';
+  // 商品
+  static const String COMMODITY = 'Commodity';
 }

@@ -5,7 +5,11 @@ import '../utils/https_client.dart';
 class CollectApi {
   static String base = '/user/collect';
 
-  static Future<Response> getCollectList({required int id, required String type}) async {
+  /**
+   * id
+   * type 0-all 1-commodity 2-post
+   */
+  static Future<Response> getCollectList({required int id, required int type}) async {
     try {
       return await HttpsClient.get(url: '$base/list', query: {
         "userId": id,
