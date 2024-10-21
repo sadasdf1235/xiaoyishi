@@ -1,7 +1,7 @@
 class CollectModel {
   int id;
   int userId;
-  int? type;
+  int type;
   String? title;
   double? price;
   List<String>? images;
@@ -12,7 +12,7 @@ class CollectModel {
     return CollectModel(
       id: json['id'] as int,
       userId: json['userId'] as int,
-      type: json['Type'] as int?,
+      type: json['Type'] as int,
       title: json['title'] as String?,
       price: json['price'] as double?,
       images: List<String>.from(json['images'] as List<dynamic>),
@@ -30,12 +30,12 @@ class CollectModel {
     return {
       'id': id,
       'userId': userId,
-      'Type': type,
+      'type': type,
       'title': title,
       'price': price,
       'images': images,
       'avatar': avatar,
-      'username': username,
+      'username': username
     };
   }
 
