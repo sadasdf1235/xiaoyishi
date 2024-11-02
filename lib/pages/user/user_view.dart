@@ -170,6 +170,7 @@ class UserView extends GetView<UserController> {
     );
   }
 
+  /// 卡片
   Widget _userRecord() {
     return Card(
       child: Padding(

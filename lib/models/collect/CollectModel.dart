@@ -12,7 +12,7 @@ class CollectModel {
     return CollectModel(
       id: json['id'] as int,
       userId: json['userId'] as int,
-      type: json['Type'] as int,
+      type: json['type'] as int,
       title: json['title'] as String?,
       price: json['price'] as double?,
       images: List<String>.from(json['images'] as List<dynamic>),

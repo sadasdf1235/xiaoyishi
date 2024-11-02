@@ -8,7 +8,6 @@ import '../../constants/I18n_content.dart';
 import '../../models/ApiResponse.dart';
 import '../../models/commodity/CommodityModel.dart';
 import '../../utils/storage.dart';
-import '../../models/collect/CollectModel.dart';
 
 class CollectController extends GetxController{
 
