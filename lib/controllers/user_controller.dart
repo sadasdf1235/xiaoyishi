@@ -55,8 +55,8 @@ class UserController extends GetxController{
     String token = await Storage.getStringData(Constants.TOKEN);
     Map<String,dynamic> userInfo = await Storage.getMapData(Constants.USER_INFO);
     if(token.isNotEmpty && userInfo.isNotEmpty){
-      changeLoginStatus(true);
-      changeUserInfo(UserModel.fromJson(userInfo));
+      /// 获取用户信息
+      getUserInfo(userInfo['userId']);
     }
   }
 

@@ -304,8 +304,13 @@ class HomeView extends GetView<HomeController> {
 
   ///  猜你喜欢
   Widget _favorite() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 17.h),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 17.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5.w)),
+        color: Colors.white
+      ),
       child: SpaceAround(
           leftChild: Text(
             I18nContent.GUESSLIKE.tr,
